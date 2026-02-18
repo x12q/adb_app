@@ -13,6 +13,4 @@ plugins {
 }
 rootProject.name = "adb_app"
 
-include(":x12q_common:common_ui_components")
-include(":x12q_common:common_utils")
-include(":x12q_common:common_icon")
+includeBuild("x12q_common")

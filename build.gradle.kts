@@ -29,8 +29,8 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.components.resources)
     implementation(libs.material3)
-    implementation(project(":x12q_common:common_ui_components"))
-    implementation(project(":x12q_common:common_utils"))
+    implementation("com.x12q:common_ui_components")
+    implementation("com.x12q:common_utils")
 
     implementation(libs.kotlin.datetime)
 
