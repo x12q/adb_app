@@ -1,0 +1,108 @@
+[versions]
+groupId = "com.x12q"
+appPackageName = "adb_app"
+version = "1.0.0-SNAPSHOT"
+appVersion = "1.0.0"
+kotlinVersion = "2.2.20"
+appJvmVersion = "21"
+supportLibJvmVersion = "8"
+supportUILibJvmVersion = "11"
+dagger2Version = "2.56.2"
+composeMultiPlatformVersion = "1.9.0"
+settingVersion = "1.3.0"
+coroutineVersion = "1.10.2"
+ktor-version = "3.1.3"
+logback-version = "1.4.14"
+bouncyCastleVersion = "1.83"
+apacheCommonVersion = "2.19.0"
+javetVersion = "4.1.5"
+viewModelVersion = "2.9.1"
+kotlinInjectVersion = "0.8.0"
+amazonAnvilVersion = "0.1.6"
+nettyVersion = "4.2.9.Final"
+jetbrainRuntimeVersion = "1.6.0"
+jewelVersion = "0.32.0-253.28294.205"
+
+ktor = "3.4.0"
+logback = "1.4.14"
+
+
+[libraries]
+guava = { module = "com.google.guava:guava", version = "33.5.0-jre" }
+netty = { module = "io.netty:netty-all", version.ref = "nettyVersion" }
+oshi = { module = "com.github.oshi:oshi-core", version = "6.9.0" }
+apache-common-lang3 = { module = "org.apache.commons:commons-lang3", version = "3.19.0" }
+jna = { module = "net.java.dev.jna:jna", version = "5.18.1" }
+apache-common-exec = { module = "org.apache.commons:commons-exec", version = "1.5.0" }
+rsyntaxtextarea = { module = "com.fifesoft:rsyntaxtextarea", version = "3.6.0" }
+
+jetbrain-runtime = { module = "org.jetbrains.runtime:jbr-api", version.ref = "jetbrainRuntimeVersion" }
+jetbrain-jewel-decorated-window = { module = "org.jetbrains.jewel:jewel-decorated-window", version.ref = "jewelVersion" }
+
+netty-codec-http = { module = "io.netty:netty-codec-http", version.ref = "nettyVersion" }
+netty-codec-http2 = { module = "io.netty:netty-codec-http2", version.ref = "nettyVersion" }
+netty-pkitesting = {module="io.netty:netty-pkitesting", version.ref = "nettyVersion"}
+
+amazon-anvil-compiler = { module = "software.amazon.lastmile.kotlin.inject.anvil:compiler", version.ref = "amazonAnvilVersion" }
+amazon-anvil-runtime = { module = "software.amazon.lastmile.kotlin.inject.anvil:runtime", version.ref = "amazonAnvilVersion" }
+amazon-anvil-runtime-optional = { module = "software.amazon.lastmile.kotlin.inject.anvil:runtime-optional", version.ref = "amazonAnvilVersion" }
+
+kotlin-inject-compiler = { module = "me.tatarka.inject:kotlin-inject-compiler-ksp", version.ref = "kotlinInjectVersion" }
+kotlin-inject-runtime = { module = "me.tatarka.inject:kotlin-inject-runtime", version.ref = "kotlinInjectVersion" }
+little-proxy = { module = "io.github.littleproxy:littleproxy", version = "2.4.6" }
+#little-proxy = { module = "org.littleshoot:littleproxy", version = "1.1.2" }
+kotlin-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.8.0" }
+kotlin-coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutineVersion" }
+kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.8.0" }
+kotlin-serialization-plugin = { module = "org.jetbrains.kotlin:kotlin-serialization-compiler-plugin-embeddable", version.ref = "kotlinVersion" }
+kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.1" }
+setting = { module = "com.russhwolf:multiplatform-settings", version.ref = "settingVersion" }
+setting-datastore = { module = "com.russhwolf:multiplatform-settings-datastore", version.ref = "settingVersion" }
+setting-coroutine = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "settingVersion" }
+michaelbull-kotlinResult = { module = "com.michael-bull.kotlin-result:kotlin-result-jvm", version = "1.1.12" }
+turbine = { module = "app.cash.turbine:turbine", version = "1.2.0" }
+apache-common-text = { module = "org.apache.commons:commons-text", version = "1.11.0" }
+mockk = { module = "io.mockk:mockk", version = "1.14.5" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version = "5.5.4" }
+dagger = { module = "com.google.dagger:dagger", version.ref = "dagger2Version" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger2Version" }
+material3 = { module = "org.jetbrains.compose.material3:material3-desktop", version = "1.7.3" }
+ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor-version" }
+ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor-version" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-version" }
+ktor-server-config-yaml = { module = "io.ktor:ktor-server-config-yaml", version.ref = "ktor-version" }
+ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor-version" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlinVersion" }
+bouncycastle = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bouncyCastleVersion" }
+bouncycastle-provider = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncyCastleVersion" }
+bouncycastle-tls = { module = "org.bouncycastle:bctls-jdk18on", version.ref = "bouncyCastleVersion" }
+apache-common-io = { module = "commons-io:commons-io", version.ref = "apacheCommonVersion" }
+kotlin-jsr223 = { module = "org.jetbrains.kotlin:kotlin-scripting-jsr223", version.ref = "kotlinVersion" }
+compose-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "viewModelVersion" }
+flatlaf = { module = "com.formdev:flatlaf", version = "3.6.1" }
+#caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version = "3.2.3" }
+
+javet = { module = "com.caoccao.javet:javet", version.ref = "javetVersion" }
+
+javet-v8-linux-arm64 = { module = "com.caoccao.javet:javet-v8-linux-arm64", version.ref = "javetVersion" }
+javet-v8-linux-x8664 = { module = "com.caoccao.javet:javet-v8-linux-x86_64", version.ref = "javetVersion" }
+javet-v8-macos-arm64 = { module = "com.caoccao.javet:javet-v8-macos-arm64", version.ref = "javetVersion" }
+javet-v8-macos-x8664 = { module = "com.caoccao.javet:javet-v8-macos-x86_64", version.ref = "javetVersion" }
+javet-v8-windows-x8664 = { module = "com.caoccao.javet:javet-v8-windows-x86_64", version.ref = "javetVersion" }
+
+javet-linux-arm64 = { module = "com.caoccao.javet:javet-node-linux-arm64", version.ref = "javetVersion" }
+javet-linux-x8664 = { module = "com.caoccao.javet:javet-node-linux-x86_64", version.ref = "javetVersion" }
+javet-macos-arm64 = { module = "com.caoccao.javet:javet-node-macos-arm64", version.ref = "javetVersion" }
+javet-macos-x8664 = { module = "com.caoccao.javet:javet-node-macos-x86_64", version.ref = "javetVersion" }
+javet-windows-x8664 = { module = "com.caoccao.javet:javet-node-windows-x86_64", version.ref = "javetVersion" }
+
+[plugins]
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
+jetbrain-kotlin-plugin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinVersion" }
+#kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlinVersion" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinVersion" }
+jetbrain-compose = { id = "org.jetbrains.compose", version.ref = "composeMultiPlatformVersion" }
+compose-hot-reload = { id = "org.jetbrains.compose.hot-reload", version = "1.0.0" }
+ktor = { id = "io.ktor.plugin", version.ref = "ktor-version" }
+ksp = { id = "com.google.devtools.ksp", version = "2.2.20-2.0.4" }
+buildConfig = { id = "com.github.gmazzo.buildconfig", version = "5.3.5" }

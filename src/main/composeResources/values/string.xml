@@ -1,0 +1,29 @@
+<resources>
+    <string name="manifest_section_title">Copy this into an AndroidManifest.xml (prefer a debug one):</string>
+    <string name="package_name_section_title">App package name:</string>
+    <string name="copied">Copied</string>
+    <string name="adb_loading">Loading ... </string>
+    <string name="adb_ok">Ok</string>
+    <string name="adb_missing_package_name">Missing package name</string>
+    <string name="adb_missing_adb">Missing package name</string>
+    <string name="app_package_name_placeholder">{your.app.package.name}</string>
+    <string name="add_message_btn">Add msg</string>
+    <string name="run_adb_btn">Run Adb</string>
+    <string name="json_escape_type_label">JSON</string>
+    <string name="plain_text_escape_type_label">Plain text</string>
+    <string name="xml_escape_type_label">XML</string>
+    <string name="es_value_hint">text value</string>
+    <string name="es_key_hint">text key</string>
+    <string name="profile_name_label">Profile</string>
+    <string name="profile_name_hint">profile name</string>
+    <string name="no_name_tab_place_holder">Untitled</string>
+    <string name="rename_context_menu_item_label">Rename</string>
+    <string name="message_type_title_label">Title</string>
+    <string name="message_type_body_label">Body</string>
+    <string name="message_type_other_label">String message</string>
+    <string name="adb_output_label">Output:</string>
+    <string name="change_adb_label">Adb path:</string>
+    <string name="change_adb_label_hint">adb</string>
+    <string name="change_adb_path_error">*error path</string>
+    <string name="no_profile">No profile, click "+" in the top-right corner to add a profile.</string>
+</resources>
