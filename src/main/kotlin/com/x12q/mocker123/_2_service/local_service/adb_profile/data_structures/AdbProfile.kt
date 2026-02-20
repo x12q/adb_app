@@ -3,11 +3,14 @@ package com.x12q.mocker123._2_service.local_service.adb_profile.data_structures
 import java.util.UUID
 import kotlin.uuid.ExperimentalUuidApi
 
+data class AdbProfileId(val uuid: UUID)
+
+
 data class AdbProfile(
     /**
      * A fixed and unique id of a profile
      */
-    val id: UUID,
+    val id: AdbProfileId,
     val name:String?,
     val packageName: String?,
     /**
@@ -85,7 +88,7 @@ data class AdbProfile(
 
     fun toDto(): AdbProfileDTO {
         return AdbProfileDTO(
-            id = id.toString(),
+            id = AdbProfileIdDTO.fromModel(id),
             name = name,
             packageName = packageName,
             esList = esMap.values.map { EsDataDTO.fromModel(it) },
@@ -98,7 +101,7 @@ data class AdbProfile(
 
         fun empty(): AdbProfile{
             return AdbProfile(
-                id= UUID.randomUUID(),
+                id= AdbProfileId(UUID.randomUUID()),
                 name = null,
                 packageName = null,
                 esMap = emptyMap(),
@@ -110,6 +113,7 @@ data class AdbProfile(
 
         fun fromDto(dto: AdbProfileDTO): AdbProfile{
             return AdbProfile(
+                id = dto.id.toModel(),
                 name = dto.name,
                 packageName = dto.packageName,
                 esMap = dto.esList.associate { esDto ->
@@ -124,7 +128,6 @@ data class AdbProfile(
                 },
                 dataEntryOrder = dto.dataEntryOrder,
                 logOutput = emptyList(),
-                id = UUID.fromString(dto.id)
             )
         }
     }
