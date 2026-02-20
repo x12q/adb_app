@@ -27,42 +27,44 @@ class MainScreenViewModel @Inject constructor(
 
     private val viewModelCache = mutableMapOf<AdbProfileId, AdbProfileScreenViewModel>()
 
-    val profileViewModelsFlow: StateFlow<List<AdbProfileScreenViewModel>> = adbProfileRepoContainer.profileFlow
+    val profileIdsFlow: StateFlow<List<AdbProfileId>> = adbProfileRepoContainer.profileFlow
         .map { profiles ->
             profiles.map { profile ->
                 viewModelCache.getOrPut(profile.id) {
                     adbProfileScreenViewModelFactory.create(profile.id)
                 }
+                profile.id
             }
         }
         .toStateFlow(cr, emptyList())
 
-
-    private val selectedIndex: MutableStateFlow<Int> = MutableStateFlow(0)
+    private val selectedProfileId: MutableStateFlow<AdbProfileId?> = MutableStateFlow(null)
 
     val selectedViewModel: StateFlow<AdbProfileScreenViewModel?> = combine(
-        profileViewModelsFlow,
-        selectedIndex
-    ) { viewmodelList, selectedIndex ->
-        val selectedVm = viewmodelList.getOrNull(selectedIndex)
-        selectedVm
-    }.toStateFlow(cr,null)
+        profileIdsFlow,
+        selectedProfileId
+    ) { _, selectedId ->
+        selectedId?.let { viewModelCache[it] }
+    }.toStateFlow(cr, null)
+
+    fun getViewModel(profileId: AdbProfileId): AdbProfileScreenViewModel? = viewModelCache[profileId]
 
     fun onAddClick() {
-        adbProfileRepoContainer.add2(AdbProfile.empty())
-        val newIndex = adbProfileRepoContainer.profileFlow.value.lastIndex
-        selectedIndex.value = newIndex.coerceAtLeast(0)
+        val newProfile = AdbProfile.empty()
+        adbProfileRepoContainer.add2(newProfile)
+        selectedProfileId.value = newProfile.id
     }
 
     fun onCloseTabClick(profileId: AdbProfileId) {
         viewModelCache.remove(profileId)
         adbProfileRepoContainer.remove2(profileId.uuid)
-        val indices = adbProfileRepoContainer.profileFlow.value.indices
-        val nextIndex = (selectedIndex.value.takeIf { it in indices } ?: adbProfileRepoContainer.profileFlow.value.lastIndex).coerceAtLeast(0)
-        selectedIndex.value = nextIndex
+        // if the closed tab was selected, select the last remaining profile
+        if (selectedProfileId.value == profileId) {
+            selectedProfileId.value = adbProfileRepoContainer.profileFlow.value.lastOrNull()?.id
+        }
     }
 
-    fun onSelect(viewModel: AdbProfileScreenViewModel) {
-        selectedIndex.value = profileViewModelsFlow.value.indexOf(viewModel).takeIf { it != -1 } ?: 0
+    fun onSelect(profileId: AdbProfileId) {
+        selectedProfileId.value = profileId
     }
 }

@@ -17,11 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.WindowPlacement
-import androidx.compose.ui.window.WindowPosition
-import androidx.compose.ui.window.rememberWindowState
 import com.x12q.adb_app.generated.resources.Res
 import com.x12q.adb_app.generated.resources.no_name_tab_place_holder
 import com.x12q.adb_app.generated.resources.no_profile
@@ -61,12 +57,13 @@ fun MainScreen(
         }
 
         is Ok -> {
-            val profileScreenViewModels by viewModel.profileViewModelsFlow.collectAsState()
+            val profileIds by viewModel.profileIdsFlow.collectAsState()
             val selected by viewModel.selectedViewModel.collectAsState()
 
             MainScreen(
-                selectedAdbProfileScreenVM = selected,
-                adbProfile = profileScreenViewModels,
+                selectedProfileId = selected?.adbProfileId,
+                profileIds = profileIds,
+                getViewModel = viewModel::getViewModel,
                 onAddTabClick = viewModel::onAddClick,
                 onCloseTabClick = viewModel::onCloseTabClick,
                 onSelect = viewModel::onSelect,
@@ -78,39 +75,42 @@ fun MainScreen(
 
 @Composable
 fun MainScreen(
-    selectedAdbProfileScreenVM: AdbProfileScreenViewModel?,
-    adbProfile: List<AdbProfileScreenViewModel>,
+    selectedProfileId: AdbProfileId?,
+    profileIds: List<AdbProfileId>,
+    getViewModel: (AdbProfileId) -> AdbProfileScreenViewModel?,
     onAddTabClick: () -> Unit,
-    onSelect: (AdbProfileScreenViewModel) -> Unit,
+    onSelect: (AdbProfileId) -> Unit,
     onCloseTabClick: (AdbProfileId) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
     TabLayout(
         modifier = modifier,
-        allTabItems = adbProfile,
-        tabItemView = { currentItem ->
+        allTabItems = profileIds,
+        tabItemView = { profileId ->
+            val vm = getViewModel(profileId)
             TabView(
-                label = currentItem.profileDisplayNameFlow.collectAsState().value
+                label = vm?.profileDisplayNameFlow?.collectAsState()?.value
                     ?: stringResource(Res.string.no_name_tab_place_holder),
-                isSelected = currentItem == selectedAdbProfileScreenVM,
+                isSelected = profileId == selectedProfileId,
                 onClick = {
-                    onSelect(currentItem)
+                    onSelect(profileId)
                 },
                 onCloseClick = {
-                    onCloseTabClick(currentItem.adbProfileId)
+                    onCloseTabClick(profileId)
                 },
                 onLabelChange = { newLabel ->
-                    currentItem.changeProfileName(newLabel.takeIf { it.isNotEmpty() && it.isNotBlank() })
+                    vm?.changeProfileName(newLabel.takeIf { it.isNotEmpty() && it.isNotBlank() })
                 },
                 onRenameSelect = {
-                    onSelect(currentItem)
+                    onSelect(profileId)
                 }
             )
         },
         content = {
-            if (selectedAdbProfileScreenVM != null) {
-                AdbProfileScreen(selectedAdbProfileScreenVM)
+            val selectedVm = selectedProfileId?.let { getViewModel(it) }
+            if (selectedVm != null) {
+                AdbProfileScreen(selectedVm)
             }else{
                 EmptyDefaultScreen()
             }
