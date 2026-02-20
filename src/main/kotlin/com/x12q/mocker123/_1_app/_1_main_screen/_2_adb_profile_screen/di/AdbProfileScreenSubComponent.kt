@@ -11,7 +11,7 @@ import dagger.Subcomponent
     AdbModule::class,
 ])
 @AdbProfileScreenScope
-interface AdbProfileScreenScreenSubComponent {
+interface AdbProfileScreenSubComponent {
 
     fun adbProfileScreenViewModel(): AdbProfileScreenViewModel
 
@@ -19,6 +19,6 @@ interface AdbProfileScreenScreenSubComponent {
     interface Builder {
         @BindsInstance
         fun setAdbProfileId(adbProfileId: AdbProfileId): Builder
-        fun build(): AdbProfileScreenScreenSubComponent
+        fun build(): AdbProfileScreenSubComponent
     }
 }
