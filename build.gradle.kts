@@ -31,6 +31,7 @@ dependencies {
     implementation(libs.material3)
     implementation("com.x12q:common_ui_components")
     implementation("com.x12q:common_utils")
+    implementation(libs.jetbrain.jewel.decorated.window)
 
     implementation(libs.kotlin.datetime)
 

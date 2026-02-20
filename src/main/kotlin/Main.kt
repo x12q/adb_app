@@ -9,6 +9,7 @@ import androidx.compose.ui.window.rememberWindowState
 import com.x12q.mocker123.DaggerAppComponent
 import com.x12q.mocker123._1_app._1_main_screen.MainScreen
 import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.common_ui.window.CommonWindow
 
 
 fun main() {
@@ -18,18 +19,19 @@ fun main() {
     val mainViewModel = comp.mainScreenViewModelFactory().create()
 
     application {
-        Window(
-            onCloseRequest = {
-                repoCont.save()
-                exitApplication()
-            },
-            state = rememberWindowState(
-                size = DpSize(1200.dp,800.dp),
-                placement = WindowPlacement.Floating,
-                position = WindowPosition(Alignment.Center)
-            ),
-        ) {
-            BaseTheme(isDarkTheme = true){
+        BaseTheme(isDarkTheme = true) {
+            CommonWindow(
+                state = rememberWindowState(
+                    size = DpSize(1200.dp, 800.dp),
+                    placement = WindowPlacement.Floating,
+                    position = WindowPosition(Alignment.Center)
+                ),
+                onCloseRequest = {
+                    repoCont.save()
+                    exitApplication()
+                },
+                titleBarContent = {}
+            ) {
                 MainScreen(mainViewModel)
             }
         }
