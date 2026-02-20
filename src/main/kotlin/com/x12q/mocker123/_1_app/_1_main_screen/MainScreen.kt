@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
@@ -17,7 +18,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.WindowPlacement
+import androidx.compose.ui.window.WindowPosition
+import androidx.compose.ui.window.rememberWindowState
 import com.x12q.adb_app.generated.resources.Res
 import com.x12q.adb_app.generated.resources.no_name_tab_place_holder
 import com.x12q.adb_app.generated.resources.no_profile
@@ -34,6 +39,8 @@ import com.x12q.common_ui.utils.DataLoadingStatus
 import com.x12q.common_ui.utils.LoadError
 import com.x12q.common_ui.utils.LoadedData
 import com.x12q.common_ui.utils.Loading
+import com.x12q.common_ui.window.CommonWindow
+import com.x12q.mocker123._1_app._1_main_screen._1_tab_view.TabBar
 import org.jetbrains.compose.resources.stringResource
 
 

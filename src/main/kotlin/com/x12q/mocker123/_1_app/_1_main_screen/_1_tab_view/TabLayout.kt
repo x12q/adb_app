@@ -52,7 +52,7 @@ fun <T> TabLayout(
 }
 
 @Composable
-private fun <T> TabBar(
+fun <T> TabBar(
     allTabItems: List<T>,
     tabItemView: @Composable (item: T) -> Unit,
     onAddClick: () -> Unit,
