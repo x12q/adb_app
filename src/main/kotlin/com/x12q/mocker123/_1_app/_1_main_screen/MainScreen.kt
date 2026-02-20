@@ -39,8 +39,6 @@ import com.x12q.common_ui.utils.DataLoadingStatus
 import com.x12q.common_ui.utils.LoadError
 import com.x12q.common_ui.utils.LoadedData
 import com.x12q.common_ui.utils.Loading
-import com.x12q.common_ui.window.CommonWindow
-import com.x12q.mocker123._1_app._1_main_screen._1_tab_view.TabBar
 import org.jetbrains.compose.resources.stringResource
 
 
@@ -53,7 +51,6 @@ fun MainScreen(
     val initLoad: MutableState<DataLoadingStatus<Unit, CannotLoadProfile>> = remember { mutableStateOf(Loading) }
 
     LaunchedEffect(Unit) {
-        // delay(1000) // delay for dramatic effect
         repoCont.loadProfiles().collect {
             initLoad.value = it
         }
@@ -147,6 +144,7 @@ fun EmptyDefaultScreen() {
 @Composable
 fun ErrorScreen(errMsg: String) {
     Box(Modifier.fillMaxSize().background(BaseTheme.colors.baseColors.surface1), contentAlignment = Alignment.Center) {
+        // TODO add UI to handle loading data error
         ContentText(errMsg)
     }
 }

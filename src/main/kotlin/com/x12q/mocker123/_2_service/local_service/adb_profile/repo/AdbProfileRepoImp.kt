@@ -8,6 +8,7 @@ import com.x12q.mocker123._2_service.local_service.adb_profile.errors.CannotUpda
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.EsData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.util.UUID
 
 class AdbProfileRepoImp(
     initProfile: AdbProfile

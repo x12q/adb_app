@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AdbProfileDTO(
+    val id: String,
     val name:String?,
     val packageName: String?,
     val esList:List<EsDataDTO>,

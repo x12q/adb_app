@@ -18,6 +18,7 @@ interface AppSetting {
 
 
     fun saveStringValue(key: String, value: String)
+    fun deleteStringValue(key: String)
     fun loadStringValueFlow(key: String): Flow<String?>
     fun loadStringValue(key:String):String?
 
@@ -54,6 +55,12 @@ private class AppSettingForPreview : AppSetting {
     override fun saveStringValue(key: String, value: String) {
         strMapFlow.update {
             it + (key to value)
+        }
+    }
+
+    override fun deleteStringValue(key: String) {
+        strMapFlow.update {
+            it - key
         }
     }
 

@@ -33,6 +33,10 @@ class AppSettingImp @Inject constructor(
         settings[key] = value
     }
 
+    override fun deleteStringValue(key: String) {
+        settings.remove(key)
+    }
+
     override fun loadStringValueFlow(key: String): Flow<String?> {
         return settings.getStringOrNullFlow(key)
     }
