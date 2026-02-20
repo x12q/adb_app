@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
@@ -30,15 +29,13 @@ import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.AdbProfile
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.AdbProfileScreenViewModel
 import com.x12q.mocker123._1_app._1_main_screen._1_tab_view.TabLayout
 import com.x12q.mocker123._1_app._1_main_screen._1_tab_view.TabView
+import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfileId
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
 import com.x12q.mocker123._2_service.local_service.adb_profile.errors.CannotLoadProfile
-import com.x12q.mocker123._2_service.local_service.adb_profile.repo.AdbProfileRepo
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.text.ContentText
 import com.x12q.common_ui.theme.BaseTheme
-import com.x12q.common_ui.utils.DataLoadingStatus
-import com.x12q.common_ui.utils.LoadError
-import com.x12q.common_ui.utils.LoadedData
-import com.x12q.common_ui.utils.Loading
 import org.jetbrains.compose.resources.stringResource
 
 
@@ -48,21 +45,22 @@ fun MainScreen(
     modifier: Modifier = Modifier
 ) {
     val repoCont = viewModel.adbProfileRepoContainer
-    val initLoad: MutableState<DataLoadingStatus<Unit, CannotLoadProfile>> = remember { mutableStateOf(Loading) }
+    val initLoad: MutableState<com.github.michaelbull.result.Result<Unit, CannotLoadProfile>?> = remember { mutableStateOf(null) }
 
     LaunchedEffect(Unit) {
-        repoCont.loadProfiles().collect {
-            initLoad.value = it
-        }
+        initLoad.value = repoCont.loadProfiles2()
     }
 
-    when (initLoad.value) {
-        is LoadError -> {
+    when (val result = initLoad.value) {
+        null -> {
+            LoadingScreen()
+        }
+
+        is Err -> {
             ErrorScreen("Impossible: Unable to load data or create init data")
         }
 
-        is LoadedData -> {
-
+        is Ok -> {
             val profileScreenViewModels by viewModel.profileViewModelsFlow.collectAsState()
             val selected by viewModel.selectedViewModel.collectAsState()
 
@@ -75,10 +73,6 @@ fun MainScreen(
                 modifier = modifier,
             )
         }
-
-        Loading -> {
-            LoadingScreen()
-        }
     }
 }
 
@@ -88,7 +82,7 @@ fun MainScreen(
     adbProfile: List<AdbProfileScreenViewModel>,
     onAddTabClick: () -> Unit,
     onSelect: (AdbProfileScreenViewModel) -> Unit,
-    onCloseTabClick: (AdbProfileRepo) -> Unit,
+    onCloseTabClick: (AdbProfileId) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -104,7 +98,7 @@ fun MainScreen(
                     onSelect(currentItem)
                 },
                 onCloseClick = {
-                    onCloseTabClick(currentItem.adbProfileRepo)
+                    onCloseTabClick(currentItem.adbProfileId)
                 },
                 onLabelChange = { newLabel ->
                     currentItem.changeProfileName(newLabel.takeIf { it.isNotEmpty() && it.isNotBlank() })

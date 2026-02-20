@@ -8,8 +8,10 @@ import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_sec
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_section.messages.es.EscapeType
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.EsData
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.di.AdbProfileScreenScope
+import com.x12q.mocker123._2_service.local_service.adb_profile.AdbProfileRepoContainer
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbOutput
-import com.x12q.mocker123._2_service.local_service.adb_profile.repo.AdbProfileRepo
+import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfile
+import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfileId
 import com.x12q.mocker123._2_service.local_service.global_coroutine_provider.GlobalCoroutineProvider
 import com.x12q.mocker123._2_service.local_service.global_coroutine_provider.GlobalCoroutineProviderImp
 import com.x12q.mocker123._2_service.system_service.adb_path_manager.AdbPathProvider
@@ -21,17 +23,20 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import java.nio.file.InvalidPathException
 import java.nio.file.Path
+import java.util.UUID
 import javax.inject.Inject
 import kotlin.io.path.Path
 
 @AdbProfileScreenScope
 class AdbSectionViewModel @Inject constructor(
-    val adbProfileRepo: AdbProfileRepo,
+    val adbProfileId: AdbProfileId,
+    val container: AdbProfileRepoContainer,
     val adbCommandBuilderProvider: AdbCommandBuilder,
     val commandRunner: CommandRunner,
     val coroutineProvider: GlobalCoroutineProvider,
@@ -42,7 +47,9 @@ class AdbSectionViewModel @Inject constructor(
     private val cr = coroutineProvider.coroutineScope
     private val builder = adbCommandBuilderProvider
 
-    val adbProfileFlow = adbProfileRepo.profileFlow
+    private fun currentProfile(): AdbProfile? = container.profileFlow.value.firstOrNull { it.id == adbProfileId }
+
+    val adbProfileFlow = container.getProfileFlow(adbProfileId.uuid.toString()).filterNotNull()
 
     val esMapFlow: StateFlow<Map<String, EsData>> = adbProfileFlow
         .map { it.esMap }
@@ -108,15 +115,16 @@ class AdbSectionViewModel @Inject constructor(
                         is Ok -> {
                             val command = commandRs.value
                             val o = commandRunner.run(CommandInput(command, Path("/")))
+                            val profile = currentProfile() ?: return@launch
                             when (o) {
                                 is Err -> {
                                     val err = o.error
-                                    adbProfileRepo.addLog(AdbOutput(err.toString(), Clock.System.now()))
+                                    container.add2(profile.addLog(AdbOutput(err.toString(), Clock.System.now())))
                                 }
 
                                 is Ok -> {
                                     val output = o.value
-                                    adbProfileRepo.addLog(AdbOutput(output.rawOutput, Clock.System.now()))
+                                    container.add2(profile.addLog(AdbOutput(output.rawOutput, Clock.System.now())))
                                 }
                             }
                         }
@@ -147,31 +155,35 @@ class AdbSectionViewModel @Inject constructor(
     }
 
     fun onEsChange(newEs: EsData) {
-        adbProfileRepo.updateEs(newEs.coerceToEmptyIfNeed())
+        val profile = currentProfile() ?: return
+        container.add2(profile.updateEs(newEs.coerceToEmptyIfNeed()))
     }
 
     fun addBlankEs() {
-        adbProfileRepo.addEs(EsData.empty())
+        val profile = currentProfile() ?: return
+        container.add2(profile.addEs(EsData.empty()))
     }
 
     fun addTitleEs() {
-        adbProfileRepo.addEs(
+        val profile = currentProfile() ?: return
+        container.add2(profile.addEs(
             EsData.empty().copy(
                 key = "title",
                 keyIsLocked = true,
                 escapeType = EscapeType.PLAIN_TEXT,
             )
-        )
+        ))
     }
 
     fun addBodyEs() {
-        adbProfileRepo.addEs(
+        val profile = currentProfile() ?: return
+        container.add2(profile.addEs(
             EsData.empty().copy(
                 key = "body",
                 keyIsLocked = true,
                 escapeType = EscapeType.PLAIN_TEXT,
             )
-        )
+        ))
     }
 
     fun onSelectMessageType(messageType: MessageType) {
@@ -183,14 +195,16 @@ class AdbSectionViewModel @Inject constructor(
     }
 
     fun onRemoveEsClick(esData: EsData) {
-        adbProfileRepo.removeEs(esData)
+        val profile = currentProfile() ?: return
+        container.add2(profile.removeEs(esData))
     }
 
 
     companion object {
         fun forPreview(): AdbSectionViewModel {
             return AdbSectionViewModel(
-                adbProfileRepo = AdbProfileRepo.forPreview(),
+                adbProfileId = AdbProfileId(UUID.randomUUID()),
+                container = AdbProfileRepoContainer.forPreview(),
                 adbCommandBuilderProvider = AdbCommandBuilder.forPreview(),
                 commandRunner = CommandRunner.forPreview(),
                 coroutineProvider = GlobalCoroutineProviderImp(),
