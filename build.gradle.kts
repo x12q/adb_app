@@ -1,5 +1,4 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.compose.reload.ComposeHotRun
 
 plugins {
     val kotlinVersion = libs.versions.kotlinVersion.get()
@@ -23,6 +22,9 @@ repositories {
  kotlin {
      val javaVersion = libs.versions.appJvmVersion.get().toInt()
      jvmToolchain(javaVersion)
+     jvmToolchain {
+         vendor = JvmVendorSpec.JETBRAINS
+     }
  }
 
 dependencies {
@@ -31,7 +33,7 @@ dependencies {
     implementation(libs.material3)
     implementation("com.x12q:common_ui_components")
     implementation("com.x12q:common_utils")
-    implementation(libs.jetbrain.jewel.decorated.window)
+    implementation(libs.jetbrains.navigation3.ui)
 
     implementation(libs.kotlin.datetime)
 
@@ -53,7 +55,7 @@ dependencies {
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlin.datetime)
-
+    implementation(libs.jetbrain.runtime)
 
 }
 

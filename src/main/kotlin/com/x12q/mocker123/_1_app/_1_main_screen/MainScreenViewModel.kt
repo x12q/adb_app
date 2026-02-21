@@ -5,7 +5,7 @@ import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.AdbProfile
 import com.x12q.mocker123._1_app._1_main_screen.di.MainScreenScope
 import com.x12q.mocker123._2_service.local_service.adb_profile.AdbProfileRepoContainer
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfile
-import com.x12q.mocker123._2_service.local_service.adb_profile.repo.AdbProfileRepo
+import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfileId
 import com.x12q.common_utils.toStateFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,44 +25,46 @@ class MainScreenViewModel @Inject constructor(
 
     private val cr = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
-    /**
-     * convert [AdbProfileRepo] to [AdbProfileScreenViewModel]
-     */
-    val profileViewModelsFlow: StateFlow<List<AdbProfileScreenViewModel>> = adbProfileRepoContainer.profileReposFlow
-        .map { repos ->
-            repos?.map { repo ->
-                adbProfileScreenViewModelFactory.create(repo)
-            } ?: emptyList()
+    private val viewModelCache = mutableMapOf<AdbProfileId, AdbProfileScreenViewModel>()
+
+    val profileIdsFlow: StateFlow<List<AdbProfileId>> = adbProfileRepoContainer.profileFlow
+        .map { profiles ->
+            profiles.map { profile ->
+                viewModelCache.getOrPut(profile.id) {
+                    adbProfileScreenViewModelFactory.create(profile.id)
+                }
+                profile.id
+            }
         }
-        .toStateFlow(cr,emptyList())
+        .toStateFlow(cr, emptyList())
 
-
-    private val selectedIndex: MutableStateFlow<Int> = MutableStateFlow(0)
+    private val selectedProfileId: MutableStateFlow<AdbProfileId?> = MutableStateFlow(null)
 
     val selectedViewModel: StateFlow<AdbProfileScreenViewModel?> = combine(
-        profileViewModelsFlow,
-        selectedIndex
-    ) { viewmodelList, selectedIndex ->
-        val selectedVm = viewmodelList.getOrNull(selectedIndex)
-        selectedVm
-    }.toStateFlow(cr,null)
+        profileIdsFlow,
+        selectedProfileId
+    ) { _, selectedId ->
+        selectedId?.let { viewModelCache[it] }
+    }.toStateFlow(cr, null)
+
+    fun getViewModel(profileId: AdbProfileId): AdbProfileScreenViewModel? = viewModelCache[profileId]
 
     fun onAddClick() {
-        adbProfileRepoContainer.add(AdbProfile.empty())
-        val newIndex = adbProfileRepoContainer.profileReposFlow.value?.lastIndex
-        selectedIndex.value = newIndex ?: 0
+        val newProfile = AdbProfile.empty()
+        adbProfileRepoContainer.add2(newProfile)
+        selectedProfileId.value = newProfile.id
     }
 
-    fun onCloseTabClick(repo: AdbProfileRepo) {
-        adbProfileRepoContainer.remove(repo)
-        // compute the next index to be selected after removal
-        adbProfileRepoContainer.profileReposFlow.value?.indices?.also { indices ->
-            val nextIndex = ((selectedIndex.value).takeIf { it in indices } ?: adbProfileRepoContainer.profileReposFlow.value?.lastIndex) ?: 0
-            selectedIndex.value = nextIndex
+    fun onCloseTabClick(profileId: AdbProfileId) {
+        viewModelCache.remove(profileId)
+        adbProfileRepoContainer.remove2(profileId.uuid)
+        // if the closed tab was selected, select the last remaining profile
+        if (selectedProfileId.value == profileId) {
+            selectedProfileId.value = adbProfileRepoContainer.profileFlow.value.lastOrNull()?.id
         }
     }
 
-    fun onSelect(viewModel: AdbProfileScreenViewModel) {
-        selectedIndex.value = profileViewModelsFlow.value.indexOf(viewModel).takeIf { it != -1 } ?: 0
+    fun onSelect(profileId: AdbProfileId) {
+        selectedProfileId.value = profileId
     }
 }

@@ -25,6 +25,14 @@ data class AdbProfile(
     val esList:List<EsData> get() = esMap.values.toList()
     val eiList:List<EiData> get() = eiMap.values.toList()
 
+    fun setPackageName(packageName: String?): AdbProfile {
+        return this.copy(packageName = packageName)
+    }
+
+    fun setProfileName(profileName: String?): AdbProfile {
+        return this.copy(name = profileName)
+    }
+
     fun addLog(log: AdbOutput): AdbProfile{
         return this.copy(logOutput = logOutput + log)
     }
