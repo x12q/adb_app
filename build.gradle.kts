@@ -33,30 +33,24 @@ dependencies {
     implementation(libs.material3)
     implementation("com.x12q:common_ui_components")
     implementation("com.x12q:common_utils")
-    implementation(libs.jetbrains.navigation3.ui)
-
     implementation(libs.kotlin.datetime)
-
+    implementation(libs.jetbrain.jewel.decorated.window)
     implementation(libs.setting)
     implementation(libs.setting.coroutine)
     implementation(libs.kotlin.coroutine)
     implementation(libs.kotlin.coroutine.test)
     implementation(libs.turbine)
-
     kapt(libs.dagger.compiler)
     implementation(libs.dagger)
     kaptTest(libs.dagger.compiler)
-
     implementation(libs.michaelbull.kotlinResult)
     implementation(libs.apache.common.text)
     implementation(libs.kotlin.serialization)
-
     testImplementation(kotlin("test"))
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlin.datetime)
     implementation(libs.jetbrain.runtime)
-
 }
 
 compose.desktop {

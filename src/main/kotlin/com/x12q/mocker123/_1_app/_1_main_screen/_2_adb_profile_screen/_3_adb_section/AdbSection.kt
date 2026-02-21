@@ -39,7 +39,7 @@ import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_sec
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_section.add_message_selector.MessageType
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_section.messages.es.EsField
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.EsData
-import com.x12q.common_ui.CenterAlignRow
+import com.x12q.common_ui.row.CenterAlignRow
 import com.x12q.common_ui.button.Button2
 import com.x12q.common_ui.spacer.HSpacer
 import com.x12q.common_ui.input_field.InputFieldWithLabel

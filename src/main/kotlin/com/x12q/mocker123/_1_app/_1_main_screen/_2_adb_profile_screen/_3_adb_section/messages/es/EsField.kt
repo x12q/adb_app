@@ -12,7 +12,7 @@ import com.x12q.adb_app.generated.resources.trash_bin_icon
 import com.x12q.common_ui.box.BasicContentBox
 import com.x12q.common_ui.button.IconButton2
 import com.x12q.common_ui.input_field.BoxedTextField
-import com.x12q.common_ui.CenterAlignRow
+import com.x12q.common_ui.row.CenterAlignRow
 import com.x12q.common_ui.spacer.HSpacer
 import com.x12q.common_ui.corner4Border
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface

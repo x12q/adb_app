@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._1_package_name_section.PackageNameSection
@@ -17,6 +18,7 @@ import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._4_adb_out
 import com.x12q.common_ui.spacer.VSpacer
 import com.x12q.common_ui.theme.BaseTheme
 import com.x12q.common_ui.preview_views.previewApp
+import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfileId
 
 
 @Composable

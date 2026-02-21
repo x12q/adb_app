@@ -37,14 +37,7 @@ fun MainScreen(
         initLoad.value = repoCont.loadProfiles2()
     }
 
-    when (val result = initLoad.value) {
-        null -> {
-            LoadingScreen()
-        }
-
-        is Err -> {
-            ErrorScreen("Impossible: Unable to load data or create init data")
-        }
+    when (initLoad.value) {
 
         is Ok -> {
             val selected by viewModel.selectedViewModel.collectAsState()
@@ -55,6 +48,9 @@ fun MainScreen(
                 EmptyDefaultScreen()
             }
         }
+
+        is Err -> ErrorScreen("Impossible: Unable to load data or create init data")
+        null -> LoadingScreen()
     }
 }
 

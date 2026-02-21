@@ -1,8 +1,4 @@
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -22,9 +18,6 @@ import com.x12q.mocker123._1_app._1_main_screen.MainScreen
 import com.x12q.mocker123._1_app._1_main_screen._1_tab_view.TabBar
 import com.x12q.mocker123._1_app._1_main_screen._1_tab_view.TabView
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.jewel.window.DecoratedWindowScope
-import org.jetbrains.jewel.window.TitleBar
-import org.jetbrains.jewel.window.newFullscreenControls
 
 
 fun main() {
@@ -73,22 +66,6 @@ fun main() {
             ) {
                 MainScreen(mainViewModel)
             }
-        }
-    }
-}
-
-
-@ExperimentalLayoutApi
-@Composable
-internal fun DecoratedWindowScope.TitleBarView() {
-    TitleBar(Modifier.newFullscreenControls(), ) {
-        Row(Modifier.align(Alignment.Start)) {
-
-        }
-
-        Text(title)
-
-        Row(Modifier.align(Alignment.End)) {
         }
     }
 }

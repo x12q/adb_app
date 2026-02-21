@@ -25,9 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import com.x12q.common_ui.CenterAlignRow
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.previewApp
+import com.x12q.common_ui.row.CenterAlignRow
 import com.x12q.common_ui.spacer.HSpacer
 import com.x12q.common_ui.theme.BaseTheme
 import kotlinx.coroutines.launch

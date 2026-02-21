@@ -8,7 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
-import com.x12q.common_ui.CenterAlignRow
+import com.x12q.common_ui.row.CenterAlignRow
 import com.x12q.common_ui.drop_down_menu.BasicDropdownMenuWithAlwaysClickableItems
 import com.x12q.common_ui.preview_views.previewApp
 
