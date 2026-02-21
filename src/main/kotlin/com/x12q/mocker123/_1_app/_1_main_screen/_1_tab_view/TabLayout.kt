@@ -64,7 +64,7 @@ fun <T> TabBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         TabRow(
-            allTabItems, tabItemView, Modifier.weight(1f)
+            allTabItems, tabItemView,
         )
         AddTabButton(onAddClick)
         tailContent?.invoke(this)
