@@ -18,6 +18,7 @@ import com.x12q.adb_app.generated.resources.no_profile
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.AdbProfileScreen
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import com.x12q.mocker123._2_service.local_service.adb_profile.errors.CannotLoadProfile
 import com.x12q.common_ui.text.ContentText
 import com.x12q.common_ui.theme.BaseTheme
@@ -30,7 +31,7 @@ fun MainScreen(
     modifier: Modifier = Modifier
 ) {
     val repoCont = viewModel.adbProfileRepoContainer
-    val initLoad = remember { mutableStateOf<com.github.michaelbull.result.Result<Unit, CannotLoadProfile>?>(null) }
+    val initLoad = remember { mutableStateOf<Result<Unit, CannotLoadProfile>?>(null) }
 
     LaunchedEffect(Unit) {
         initLoad.value = repoCont.loadProfiles2()

@@ -38,8 +38,6 @@ import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.jetbrains.JBR
-import com.sun.rowset.internal.Row
 import com.x12q.adb_app.generated.resources.Res
 import com.x12q.adb_app.generated.resources.no_name_tab_place_holder
 import com.x12q.mocker123.DaggerAppComponent
@@ -49,10 +47,6 @@ import com.x12q.mocker123._1_app._1_main_screen._1_tab_view.TabView
 import com.x12q.common_ui.theme.BaseTheme
 import com.x12q.common_ui.window.CommonWindow
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.jewel.foundation.modifier.border
-import org.jetbrains.jewel.ui.component.Dropdown
-import org.jetbrains.jewel.ui.component.Icon
-import org.jetbrains.jewel.ui.component.Tooltip
 import org.jetbrains.jewel.window.DecoratedWindowScope
 import org.jetbrains.jewel.window.TitleBar
 import org.jetbrains.jewel.window.newFullscreenControls
@@ -98,7 +92,7 @@ fun main() {
                         },
                         onAddClick = mainViewModel::onAddClick,
                         tailContent = null,
-                        modifier = Modifier.align(Alignment.Start)
+                        modifier = Modifier.padding(vertical = 3.dp)
                     )
                 }
             ) {
