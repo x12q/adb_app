@@ -25,8 +25,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
+import com.x12q.common_ui.CenterAlignRow
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.previewApp
+import com.x12q.common_ui.spacer.HSpacer
 import com.x12q.common_ui.theme.BaseTheme
 import kotlinx.coroutines.launch
 
@@ -46,7 +48,7 @@ fun <T> TabLayout(
         modifier
             .background(BaseTheme.colors.baseColors.surface2)
     ) {
-        TabBar(allTabItems, tabItemView, onAddClick, tailContent,Modifier.padding(4.dp))
+        TabBar(allTabItems, tabItemView, onAddClick, tailContent, Modifier.padding(4.dp))
         content()
     }
 }
@@ -58,14 +60,14 @@ fun <T> TabBar(
     onAddClick: () -> Unit,
     tailContent: (@Composable RowScope.() -> Unit)?,
     modifier: Modifier = Modifier,
-){
-    Row(
-        modifier = modifier.padding(4.dp),
-        verticalAlignment = Alignment.CenterVertically
+) {
+    CenterAlignRow(modifier
     ) {
         TabRow(
             allTabItems, tabItemView,
+            modifier = Modifier.weight(1f)
         )
+        HSpacer(3.dp)
         AddTabButton(onAddClick)
         tailContent?.invoke(this)
     }

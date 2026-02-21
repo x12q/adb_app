@@ -1,5 +1,4 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.compose.reload.ComposeHotRun
 
 plugins {
     val kotlinVersion = libs.versions.kotlinVersion.get()
@@ -23,6 +22,9 @@ repositories {
  kotlin {
      val javaVersion = libs.versions.appJvmVersion.get().toInt()
      jvmToolchain(javaVersion)
+     jvmToolchain {
+         vendor = JvmVendorSpec.JETBRAINS
+     }
  }
 
 dependencies {
@@ -53,7 +55,7 @@ dependencies {
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlin.datetime)
-
+    implementation(libs.jetbrain.runtime)
 
 }
 
