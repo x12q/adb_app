@@ -1,8 +1,8 @@
 package com.x12q.mocker123._1_app._1_main_screen
 
+import com.x12q.common_di.di.viewmodel_di.ViewModelFactory
+import com.x12q.common_di.di.window.WindowComponent
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.AdbProfileScreenViewModel
-import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.AdbProfileScreenViewModelFactory
-import com.x12q.mocker123._1_app._1_main_screen.di.MainScreenScope
 import com.x12q.mocker123._2_service.local_service.adb_profile.AdbProfileRepoContainer
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfile
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfileId
@@ -14,13 +14,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
+import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 
 
-@MainScreenScope
-class MainScreenViewModel @Inject constructor(
+@Inject
+class MainScreenViewModel(
     val adbProfileRepoContainer: AdbProfileRepoContainer,
-    private val adbProfileScreenViewModelFactory: AdbProfileScreenViewModelFactory,
+    private val adbProfileScreenViewModelFactory: (AdbProfileId) -> AdbProfileScreenViewModel,
 ) {
 
     private val cr = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -31,7 +33,7 @@ class MainScreenViewModel @Inject constructor(
         .map { profiles ->
             profiles.map { profile ->
                 viewModelCache.getOrPut(profile.id) {
-                    adbProfileScreenViewModelFactory.create(profile.id)
+                    adbProfileScreenViewModelFactory(profile.id)
                 }
                 profile.id
             }
@@ -66,5 +68,15 @@ class MainScreenViewModel @Inject constructor(
 
     fun onSelect(profileId: AdbProfileId) {
         selectedProfileId.value = profileId
+    }
+
+    @Inject
+    @ContributesBinding(WindowComponent.Scope::class, multibinding = true)
+    @SingleIn(WindowComponent.Scope::class)
+    class MainScreenViewModelFactory(
+        private val create: () -> MainScreenViewModel,
+    ) : ViewModelFactory {
+        override val classKey = MainScreenViewModel::class
+        override fun createVM(): MainScreenViewModel = create()
     }
 }

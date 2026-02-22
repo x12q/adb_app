@@ -11,60 +11,71 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.x12q.adb_app.generated.resources.Res
 import com.x12q.adb_app.generated.resources.no_name_tab_place_holder
+import com.x12q.common_di.di.viewmodel_di.getVM
+import com.x12q.common_di.di_compose.WithGlobalComponent
+import com.x12q.common_di.di_compose.WithScreenComponent
+import com.x12q.common_di.di_compose.WithWindowComponent
 import com.x12q.common_ui.theme.BaseTheme
 import com.x12q.common_ui.window.CommonWindow
-import com.x12q.mocker123.DaggerAppComponent
 import com.x12q.mocker123._1_app._1_main_screen.MainScreen
+import com.x12q.mocker123._1_app._1_main_screen.MainScreenViewModel
 import com.x12q.mocker123._1_app._1_main_screen._1_tab_view.TabBar
 import com.x12q.mocker123._1_app._1_main_screen._1_tab_view.TabView
+import com.x12q.mocker123._1_app._1_main_screen.di.AppGlobalComponent
+import com.x12q.mocker123._1_app._1_main_screen.di.create
 import org.jetbrains.compose.resources.stringResource
+import software.amazon.lastmile.kotlin.inject.anvil.MergeComponent
 
 
 fun main() {
-
-    val comp = DaggerAppComponent.create()
-    val repoCont = comp.adbProfileRepoContainer()
-    val mainViewModel = comp.mainScreenViewModelFactory().create()
-
     application {
-        BaseTheme(isDarkTheme = true) {
-            CommonWindow(
-                state = rememberWindowState(
-                    size = DpSize(1200.dp, 800.dp),
-                    placement = WindowPlacement.Floating,
-                    position = WindowPosition(Alignment.Center)
-                ),
-                onCloseRequest = {
-                    repoCont.save()
-                    exitApplication()
-                },
-                titleBarContent = {
-                    val profileIds by mainViewModel.profileIdsFlow.collectAsState()
-                    val selected by mainViewModel.selectedViewModel.collectAsState()
-                    val selectedProfileId = selected?.adbProfileId
-                    TabBar(
-                        allTabItems = profileIds,
-                        tabItemView = { profileId ->
-                            val vm = mainViewModel.getViewModel(profileId)
-                            TabView(
-                                label = vm?.profileDisplayNameFlow?.collectAsState()?.value
-                                    ?: stringResource(Res.string.no_name_tab_place_holder),
-                                isSelected = profileId == selectedProfileId,
-                                onClick = { mainViewModel.onSelect(profileId) },
-                                onCloseClick = { mainViewModel.onCloseTabClick(profileId) },
-                                onLabelChange = { newLabel ->
-                                    vm?.changeProfileName(newLabel.takeIf { it.isNotEmpty() && it.isNotBlank() })
-                                },
-                                onRenameSelect = { mainViewModel.onSelect(profileId) }
-                            )
-                        },
-                        onAddClick = mainViewModel::onAddClick,
-                        tailContent = null,
-                        modifier = Modifier.padding(vertical = 3.dp)
-                    )
+        WithGlobalComponent(
+            globalComponentFactory = { AppGlobalComponent::class.create() }
+        ) {
+            WithWindowComponent {
+                WithScreenComponent {
+                    BaseTheme(isDarkTheme = true) {
+                        val mainViewModel = getVM<MainScreenViewModel>()
+                        CommonWindow(
+                            state = rememberWindowState(
+                                size = DpSize(1200.dp, 800.dp),
+                                placement = WindowPlacement.Floating,
+                                position = WindowPosition(Alignment.Center)
+                            ),
+                            onCloseRequest = {
+                                mainViewModel.adbProfileRepoContainer.save()
+                                exitApplication()
+                            },
+                            titleBarContent = {
+                                val profileIds by mainViewModel.profileIdsFlow.collectAsState()
+                                val selected by mainViewModel.selectedViewModel.collectAsState()
+                                val selectedProfileId = selected?.adbProfileId
+                                TabBar(
+                                    allTabItems = profileIds,
+                                    tabItemView = { profileId ->
+                                        val vm = mainViewModel.getViewModel(profileId)
+                                        TabView(
+                                            label = vm?.profileDisplayNameFlow?.collectAsState()?.value
+                                                ?: stringResource(Res.string.no_name_tab_place_holder),
+                                            isSelected = profileId == selectedProfileId,
+                                            onClick = { mainViewModel.onSelect(profileId) },
+                                            onCloseClick = { mainViewModel.onCloseTabClick(profileId) },
+                                            onLabelChange = { newLabel ->
+                                                vm?.changeProfileName(newLabel.takeIf { it.isNotEmpty() && it.isNotBlank() })
+                                            },
+                                            onRenameSelect = { mainViewModel.onSelect(profileId) }
+                                        )
+                                    },
+                                    onAddClick = mainViewModel::onAddClick,
+                                    tailContent = null,
+                                    modifier = Modifier.padding(vertical = 3.dp)
+                                )
+                            }
+                        ) {
+                            MainScreen(mainViewModel)
+                        }
+                    }
                 }
-            ) {
-                MainScreen(mainViewModel)
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._1_package_name_section
 
-import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.di.AdbProfileScreenScope
 import com.x12q.mocker123._2_service.local_service.adb_profile.AdbProfileRepoContainer
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfileId
 import com.x12q.mocker123._2_service.local_service.global_coroutine_provider.GlobalCoroutineProvider
@@ -8,12 +7,13 @@ import com.x12q.common_utils.toStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
+import me.tatarka.inject.annotations.Assisted
+import me.tatarka.inject.annotations.Inject
 import java.util.UUID
-import javax.inject.Inject
 
-@AdbProfileScreenScope
-class PackageNameSectionViewModel @Inject constructor(
-    val adbProfileId: AdbProfileId,
+@Inject
+class PackageNameSectionViewModel(
+    @Assisted val adbProfileId: AdbProfileId,
     val container: AdbProfileRepoContainer,
     val crProvider: GlobalCoroutineProvider,
 ) {

@@ -20,7 +20,14 @@ import com.x12q.common_ui.theme.BaseTheme
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfileId
 
-
+/**
+ * Idea setup:
+ * - UI only takes in init information, then create viewmodel internally
+ * - in order to create view model internally -> need a function like getVM to access the implicit viewmodel store
+ * - need to provide view model store somehow
+ * - view model store needs to be connected to the DI graph somehow
+ * - the DI component must be provided by someone, somehow.
+ */
 @Composable
 fun AdbProfileScreen(
     viewModel: AdbProfileScreenViewModel,
@@ -43,6 +50,7 @@ fun AdbProfileScreen(
         }
     }
 }
+
 
 
 @Preview

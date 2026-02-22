@@ -6,10 +6,11 @@ import com.github.michaelbull.result.Result
 import com.x12q.common_utils.ForTestOnly
 import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.StringSelection
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
 
 @ForTestOnly
-class FakeSystemClipboardProvider @Inject constructor() : SystemClipboardProvider {
+@Inject
+class FakeSystemClipboardProvider : SystemClipboardProvider {
     val fakeClipboard = Clipboard("fake_clipboard")
     override fun getCurrentClipboard(): Clipboard? {
         return fakeClipboard

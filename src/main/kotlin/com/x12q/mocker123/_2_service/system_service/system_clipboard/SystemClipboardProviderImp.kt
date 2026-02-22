@@ -5,10 +5,16 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import java.awt.Toolkit
 import java.awt.datatransfer.Clipboard
+import com.x12q.common_di.di.global.GlobalComponent
 import java.awt.datatransfer.StringSelection
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
+import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 
-class SystemClipboardProviderImp @Inject constructor() : SystemClipboardProvider{
+@Inject
+@ContributesBinding(GlobalComponent.Scope::class)
+@SingleIn(GlobalComponent.Scope::class)
+class SystemClipboardProviderImp : SystemClipboardProvider{
     override fun getCurrentClipboard(): Clipboard? {
         val rt: Clipboard? = Toolkit.getDefaultToolkit().getSystemClipboard()
         return rt

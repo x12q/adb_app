@@ -3,11 +3,12 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     val kotlinVersion = libs.versions.kotlinVersion.get()
     kotlin("jvm") version kotlinVersion
-    kotlin("kapt") version kotlinVersion
+
     alias(libs.plugins.jetbrain.compose)
     alias(libs.plugins.jetbrain.kotlin.plugin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose.hot.reload)
+    alias(libs.plugins.ksp)
 }
 
 group = libs.versions.groupId.get()
@@ -28,6 +29,14 @@ repositories {
  }
 
 dependencies {
+    ksp(libs.kotlin.inject.compiler)
+    kspTest(libs.kotlin.inject.compiler)
+    implementation(libs.kotlin.inject.runtime)
+    ksp (libs.amazon.anvil.compiler)
+    implementation (libs.amazon.anvil.runtime)
+    implementation (libs.amazon.anvil.runtime.optional)
+
+    implementation("com.x12q:common_di")
     implementation(compose.desktop.currentOs)
     implementation(compose.components.resources)
     implementation(libs.material3)
@@ -40,9 +49,7 @@ dependencies {
     implementation(libs.kotlin.coroutine)
     implementation(libs.kotlin.coroutine.test)
     implementation(libs.turbine)
-    kapt(libs.dagger.compiler)
-    implementation(libs.dagger)
-    kaptTest(libs.dagger.compiler)
+
     implementation(libs.michaelbull.kotlinResult)
     implementation(libs.apache.common.text)
     implementation(libs.kotlin.serialization)

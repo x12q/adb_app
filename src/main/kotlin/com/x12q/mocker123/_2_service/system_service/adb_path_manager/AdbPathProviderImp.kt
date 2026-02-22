@@ -3,11 +3,17 @@ package com.x12q.mocker123._2_service.system_service.adb_path_manager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
+import com.x12q.common_di.di.global.GlobalComponent
 import java.nio.file.Path
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
+import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 import kotlin.io.path.Path
 
-class AdbPathProviderImp @Inject constructor() : AdbPathProvider {
+@Inject
+@ContributesBinding(GlobalComponent.Scope::class)
+@SingleIn(GlobalComponent.Scope::class)
+class AdbPathProviderImp : AdbPathProvider {
 
     override fun getCurrentAdbPath(): Path {
         return getActualAdbPath(customAdPathFlowMsFlow.value)

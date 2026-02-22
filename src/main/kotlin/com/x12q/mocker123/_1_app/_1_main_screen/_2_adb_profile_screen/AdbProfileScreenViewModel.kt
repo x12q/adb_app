@@ -4,7 +4,6 @@ import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._1_package
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._2_manifest_section.ManifestSectionViewModel
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_section.AdbSectionViewModel
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._4_adb_output.AdbOutputViewModel
-import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.di.AdbProfileScreenScope
 import com.x12q.mocker123._2_service.local_service.adb_profile.AdbProfileRepoContainer
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfileId
 import com.x12q.common_utils.toStateFlow
@@ -14,18 +13,24 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
+import me.tatarka.inject.annotations.Assisted
+import me.tatarka.inject.annotations.Inject
 import java.util.UUID
-import javax.inject.Inject
 
-@AdbProfileScreenScope
-class AdbProfileScreenViewModel @Inject constructor(
-    val packageNameSectionViewModel: PackageNameSectionViewModel,
-    val manifestSectionViewModel: ManifestSectionViewModel,
-    val adbSectionViewModel: AdbSectionViewModel,
-    val adbProfileId: AdbProfileId,
+@Inject
+class AdbProfileScreenViewModel(
+    @Assisted val adbProfileId: AdbProfileId,
     val container: AdbProfileRepoContainer,
-    val adbOutputViewModel: AdbOutputViewModel,
+    private val packageNameSectionViewModelFactory: (AdbProfileId) -> PackageNameSectionViewModel,
+    private val manifestSectionViewModelFactory: (PackageNameSectionViewModel) -> ManifestSectionViewModel,
+    private val adbSectionViewModelFactory: (AdbProfileId) -> AdbSectionViewModel,
+    private val adbOutputViewModelFactory: (AdbProfileId) -> AdbOutputViewModel,
 ){
+
+    val packageNameSectionViewModel = packageNameSectionViewModelFactory(adbProfileId)
+    val manifestSectionViewModel = manifestSectionViewModelFactory(packageNameSectionViewModel)
+    val adbSectionViewModel = adbSectionViewModelFactory(adbProfileId)
+    val adbOutputViewModel = adbOutputViewModelFactory(adbProfileId)
 
     val cr: CoroutineScope = CoroutineScope(SupervisorJob()+ Dispatchers.Default)
 
@@ -47,12 +52,12 @@ class AdbProfileScreenViewModel @Inject constructor(
             val container = AdbProfileRepoContainer.forPreview()
             val profileId = AdbProfileId(UUID.randomUUID())
             return AdbProfileScreenViewModel(
-                manifestSectionViewModel = ManifestSectionViewModel.forPreview(),
-                packageNameSectionViewModel = PackageNameSectionViewModel.forPreview(),
-                adbSectionViewModel = AdbSectionViewModel.forPreview(),
                 adbProfileId = profileId,
                 container = container,
-                adbOutputViewModel = AdbOutputViewModel.forPreview()
+                packageNameSectionViewModelFactory = { PackageNameSectionViewModel.forPreview() },
+                manifestSectionViewModelFactory = { ManifestSectionViewModel.forPreview() },
+                adbSectionViewModelFactory = { AdbSectionViewModel.forPreview() },
+                adbOutputViewModelFactory = { AdbOutputViewModel.forPreview() },
             )
         }
     }

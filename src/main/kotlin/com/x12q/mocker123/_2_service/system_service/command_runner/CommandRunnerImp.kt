@@ -5,12 +5,18 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import kotlinx.coroutines.runBlocking
 import java.io.File
+import com.x12q.common_di.di.global.GlobalComponent
 import java.io.IOException
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
+import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 import kotlin.io.path.Path
 
-class CommandRunnerImp @Inject constructor() : CommandRunner {
+@Inject
+@ContributesBinding(GlobalComponent.Scope::class)
+@SingleIn(GlobalComponent.Scope::class)
+class CommandRunnerImp : CommandRunner {
 
     override suspend fun run(commandInput: CommandInput): Result<CommandOutput, CommandRunnerError> {
         val commandStr: String = commandInput.command

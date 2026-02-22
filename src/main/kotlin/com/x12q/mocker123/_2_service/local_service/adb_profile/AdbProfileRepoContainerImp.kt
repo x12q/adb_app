@@ -16,13 +16,18 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
+import com.x12q.common_di.di.global.GlobalComponent
 import java.util.UUID
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
+import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-
-class AdbProfileRepoContainerImp @Inject constructor(val setting: AppSetting) : AdbProfileRepoContainer {
+@Inject
+@ContributesBinding(GlobalComponent.Scope::class)
+@SingleIn(GlobalComponent.Scope::class)
+class AdbProfileRepoContainerImp(val setting: AppSetting) : AdbProfileRepoContainer {
 
     private val profileMsFlow: MutableStateFlow<List<AdbProfile>> = MutableStateFlow(emptyList())
     override val profileFlow: StateFlow<List<AdbProfile>> = profileMsFlow

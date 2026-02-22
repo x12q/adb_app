@@ -7,10 +7,16 @@ import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_sec
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_section.es_formatter.EsFormatter
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfile
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.EsData
+import com.x12q.common_di.di.global.GlobalComponent
 import java.nio.file.Path
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
+import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 
-class AdbStrCommandBuilderImp @Inject constructor(
+@Inject
+@ContributesBinding(GlobalComponent.Scope::class)
+@SingleIn(GlobalComponent.Scope::class)
+class AdbStrCommandBuilderImp(
     val esFormatter: EsFormatter,
 ): AdbStrCommandBuilder {
     override fun build(

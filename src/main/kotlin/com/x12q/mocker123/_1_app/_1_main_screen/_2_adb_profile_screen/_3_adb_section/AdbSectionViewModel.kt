@@ -7,7 +7,6 @@ import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_sec
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_section.add_message_selector.MessageType
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_section.messages.es.EscapeType
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.EsData
-import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.di.AdbProfileScreenScope
 import com.x12q.mocker123._2_service.local_service.adb_profile.AdbProfileRepoContainer
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbOutput
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfile
@@ -29,13 +28,14 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import java.nio.file.InvalidPathException
 import java.nio.file.Path
+import me.tatarka.inject.annotations.Assisted
+import me.tatarka.inject.annotations.Inject
 import java.util.UUID
-import javax.inject.Inject
 import kotlin.io.path.Path
 
-@AdbProfileScreenScope
-class AdbSectionViewModel @Inject constructor(
-    val adbProfileId: AdbProfileId,
+@Inject
+class AdbSectionViewModel(
+    @Assisted val adbProfileId: AdbProfileId,
     val container: AdbProfileRepoContainer,
     val adbCommandBuilderProvider: AdbCommandBuilder,
     val commandRunner: CommandRunner,
