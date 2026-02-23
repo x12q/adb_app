@@ -1,7 +1,7 @@
 package com.x12q.mocker123.adb_manager
 
 import app.cash.turbine.turbineScope
-import com.x12q.mocker123._2_service.system_service.adb_path_manager.AdbPathProviderImp
+import com.x12q.mocker123.service.system_service.adb_path_manager.AdbPathProviderImp
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.test.runTest
 import kotlin.io.path.Path

@@ -17,10 +17,10 @@ import com.x12q.common_di.di.viewmodel_di.LocalViewModeFactoryProvider
 import com.x12q.common_di.di.viewmodel_di.getVM
 import com.x12q.common_ui.theme.BaseTheme
 import com.x12q.common_ui.window.CommonWindow
-import com.x12q.mocker123._1_app._1_main_screen.MainScreen
-import com.x12q.mocker123._1_app._1_main_screen.MainScreenViewModel
-import com.x12q.mocker123._1_app._1_main_screen._1_tab_view.TabBar
-import com.x12q.mocker123._1_app._1_main_screen._1_tab_view.TabView
+import com.x12q.mocker123.app.main_screen.MainScreen
+import com.x12q.mocker123.app.main_screen.MainScreenViewModel
+import com.x12q.mocker123.app.main_screen.tab_view.TabBar
+import com.x12q.mocker123.app.main_screen.tab_view.TabView
 import com.x12q.mocker123.di.AppGlobalComponent
 import com.x12q.mocker123.di.create
 import org.jetbrains.compose.resources.stringResource
