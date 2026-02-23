@@ -18,9 +18,9 @@ interface AdbProfileRepoContainer {
     suspend fun loadProfiles2(): Result<Unit, CannotLoadProfile>
     fun getProfileFlow(profileId: String): Flow<AdbProfile?>
 
-    fun add2(adbProfile: AdbProfile): Result<Unit, CannotUpdateProfile>
+    fun add(adbProfile: AdbProfile): Result<Unit, CannotUpdateProfile>
 
-    fun remove2(profileId: UUID)
+    fun remove(profileId: UUID)
 
     /**
      * save all current profile to persistent layer

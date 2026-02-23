@@ -29,7 +29,7 @@ class AdbOutputViewModel(
     fun clearLog() {
         val currentProfile = container.profileFlow.value.firstOrNull { it.id == adbProfileId } ?: return
         val newProfile = currentProfile.clearLog()
-        container.add2(newProfile)
+        container.add(newProfile)
     }
 
     companion object {

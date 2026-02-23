@@ -34,13 +34,13 @@ class PackageNameSectionViewModel(
         val name = packageName.takeIf { it.isNotEmpty() && it.isNotBlank() }
         val currentProfile = container.profileFlow.value.firstOrNull { it.id == adbProfileId } ?: return
         val newProfile = currentProfile.setPackageName(name?.trim())
-        container.add2(newProfile)
+        container.add(newProfile)
     }
 
     fun setProfileName(profileName: String?){
         val currentProfile = container.profileFlow.value.firstOrNull { it.id == adbProfileId } ?: return
         val newProfile = currentProfile.setProfileName(profileName)
-        container.add2(newProfile)
+        container.add(newProfile)
     }
 
     companion object{

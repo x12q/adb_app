@@ -45,7 +45,7 @@ class AdbProfileScreenViewModel(
     fun changeProfileName(newName: String?){
         val currentProfile = container.profileFlow.value.firstOrNull { it.id == adbProfileId } ?: return
         val newProfile = currentProfile.setProfileName(newName)
-        container.add2(newProfile)
+        container.add(newProfile)
     }
 
     companion object{

@@ -119,12 +119,12 @@ class AdbSectionViewModel(
                             when (o) {
                                 is Err -> {
                                     val err = o.error
-                                    container.add2(profile.addLog(AdbOutput(err.toString(), Clock.System.now())))
+                                    container.add(profile.addLog(AdbOutput(err.toString(), Clock.System.now())))
                                 }
 
                                 is Ok -> {
                                     val output = o.value
-                                    container.add2(profile.addLog(AdbOutput(output.rawOutput, Clock.System.now())))
+                                    container.add(profile.addLog(AdbOutput(output.rawOutput, Clock.System.now())))
                                 }
                             }
                         }
@@ -156,17 +156,17 @@ class AdbSectionViewModel(
 
     fun onEsChange(newEs: EsData) {
         val profile = currentProfile() ?: return
-        container.add2(profile.updateEs(newEs.coerceToEmptyIfNeed()))
+        container.add(profile.updateEs(newEs.coerceToEmptyIfNeed()))
     }
 
     fun addBlankEs() {
         val profile = currentProfile() ?: return
-        container.add2(profile.addEs(EsData.empty()))
+        container.add(profile.addEs(EsData.empty()))
     }
 
     fun addTitleEs() {
         val profile = currentProfile() ?: return
-        container.add2(profile.addEs(
+        container.add(profile.addEs(
             EsData.empty().copy(
                 key = "title",
                 keyIsLocked = true,
@@ -177,7 +177,7 @@ class AdbSectionViewModel(
 
     fun addBodyEs() {
         val profile = currentProfile() ?: return
-        container.add2(profile.addEs(
+        container.add(profile.addEs(
             EsData.empty().copy(
                 key = "body",
                 keyIsLocked = true,
@@ -196,7 +196,7 @@ class AdbSectionViewModel(
 
     fun onRemoveEsClick(esData: EsData) {
         val profile = currentProfile() ?: return
-        container.add2(profile.removeEs(esData))
+        container.add(profile.removeEs(esData))
     }
 
 

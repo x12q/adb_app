@@ -51,13 +51,13 @@ class TitleBarViewModel(
 
     fun onAddClick() {
         val newProfile = AdbProfile.empty()
-        adbProfileRepoContainer.add2(newProfile)
+        adbProfileRepoContainer.add(newProfile)
         selectedAdbProfileIdProvider.setSelectedAdbProfileId(newProfile.id)
     }
 
     fun onCloseTabClick(profileId: AdbProfileId) {
         tabInfoCache.remove(profileId)
-        adbProfileRepoContainer.remove2(profileId.uuid)
+        adbProfileRepoContainer.remove(profileId.uuid)
         selectedAdbProfileIdProvider.setSelectedAdbProfileId(adbProfileRepoContainer.profileFlow.value.lastOrNull()?.id)
     }
 
@@ -76,7 +76,7 @@ class TitleBarViewModel(
             val currentProfile = adbProfileRepoContainer.profileFlow.value
                 .firstOrNull { it.id == adbProfileId } ?: return
             val newProfile = currentProfile.setProfileName(newName)
-            adbProfileRepoContainer.add2(newProfile)
+            adbProfileRepoContainer.add(newProfile)
         }
     }
 

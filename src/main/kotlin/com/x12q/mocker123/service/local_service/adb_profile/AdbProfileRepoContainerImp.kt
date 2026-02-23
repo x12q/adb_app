@@ -50,7 +50,7 @@ class AdbProfileRepoContainerImp(val setting: AppSetting) : AdbProfileRepoContai
         }
     }
 
-    override fun add2(adbProfile: AdbProfile): Result<Unit, CannotUpdateProfile> {
+    override fun add(adbProfile: AdbProfile): Result<Unit, CannotUpdateProfile> {
         val current = profileMsFlow.value
         val index = current.indexOfFirst { it.id == adbProfile.id }
         profileMsFlow.value = if (index >= 0) {
@@ -65,7 +65,7 @@ class AdbProfileRepoContainerImp(val setting: AppSetting) : AdbProfileRepoContai
         return profileMsFlow.map { profiles -> profiles.firstOrNull { it.id.uuid.toString() == profileId } }
     }
 
-    override fun remove2(profileId: UUID) {
+    override fun remove(profileId: UUID) {
         profileMsFlow.value = profileMsFlow.value.filter { it.id.uuid != profileId }
     }
 

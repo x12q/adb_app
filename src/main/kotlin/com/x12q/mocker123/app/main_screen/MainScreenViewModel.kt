@@ -52,13 +52,13 @@ class MainScreenViewModel(
 
     fun onAddClick() {
         val newProfile = AdbProfile.empty()
-        adbProfileRepoContainer.add2(newProfile)
+        adbProfileRepoContainer.add(newProfile)
         selectedAdbProfileIdProvider.setSelectedAdbProfileId(newProfile.id)
     }
 
     fun onCloseTabClick(profileId: AdbProfileId) {
         viewModelCache.remove(profileId)
-        adbProfileRepoContainer.remove2(profileId.uuid)
+        adbProfileRepoContainer.remove(profileId.uuid)
         selectedAdbProfileIdProvider.setSelectedAdbProfileId(adbProfileRepoContainer.profileFlow.value.lastOrNull()?.id)
     }
 
