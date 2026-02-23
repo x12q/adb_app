@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import com.x12q.common_di.di.viewmodel_di.ViewModelFactory
-import com.x12q.mocker123.di.AppScope
+import com.x12q.mocker123.di.AppGlobalComponent
 import me.tatarka.inject.annotations.Inject
 import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
 import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
@@ -72,8 +72,8 @@ class MainScreenViewModel(
     }
 
     @Inject
-    @ContributesBinding(AppScope::class, multibinding = true)
-    @SingleIn(AppScope::class)
+    @ContributesBinding(AppGlobalComponent.Scope::class, multibinding = true)
+    @SingleIn(AppGlobalComponent.Scope::class)
     class MainScreenViewModelFactory(
         private val create: () -> MainScreenViewModel,
     ) : ViewModelFactory {

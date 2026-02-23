@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import com.x12q.mocker123.di.AppScope
+import com.x12q.mocker123.di.AppGlobalComponent
 import java.util.UUID
 import me.tatarka.inject.annotations.Inject
 import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
@@ -25,8 +25,8 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 @Inject
-@ContributesBinding(AppScope::class)
-@SingleIn(AppScope::class)
+@ContributesBinding(AppGlobalComponent.Scope::class)
+@SingleIn(AppGlobalComponent.Scope::class)
 class AdbProfileRepoContainerImp(val setting: AppSetting) : AdbProfileRepoContainer {
 
     private val profileMsFlow: MutableStateFlow<List<AdbProfile>> = MutableStateFlow(emptyList())
