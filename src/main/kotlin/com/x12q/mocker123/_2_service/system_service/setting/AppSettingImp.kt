@@ -5,7 +5,7 @@ import com.russhwolf.settings.PreferencesSettings
 import com.russhwolf.settings.coroutines.getBooleanFlow
 import com.russhwolf.settings.coroutines.getStringOrNullFlow
 import com.russhwolf.settings.set
-import com.x12q.common_di.di.global.GlobalComponent
+import com.x12q.mocker123.di.AppScope
 import kotlinx.coroutines.flow.Flow
 import me.tatarka.inject.annotations.Inject
 import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
@@ -13,8 +13,8 @@ import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 
 @OptIn(ExperimentalSettingsApi::class)
 @Inject
-@ContributesBinding(GlobalComponent.Scope::class)
-@SingleIn(GlobalComponent.Scope::class)
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
 class AppSettingImp(
     val settings: PreferencesSettings
 ): AppSetting {

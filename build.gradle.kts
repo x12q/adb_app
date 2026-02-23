@@ -40,6 +40,7 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.components.resources)
     implementation(libs.material3)
+    implementation(libs.compose.viewmodel)
     implementation("com.x12q:common_ui_components")
     implementation("com.x12q:common_utils")
     implementation(libs.kotlin.datetime)

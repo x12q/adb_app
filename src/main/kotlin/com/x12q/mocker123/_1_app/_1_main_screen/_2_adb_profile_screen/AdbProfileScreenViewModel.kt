@@ -1,5 +1,6 @@
 package com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen
 
+import androidx.lifecycle.ViewModel
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._1_package_name_section.PackageNameSectionViewModel
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._2_manifest_section.ManifestSectionViewModel
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen._3_adb_section.AdbSectionViewModel
@@ -25,7 +26,7 @@ class AdbProfileScreenViewModel(
     private val manifestSectionViewModelFactory: (PackageNameSectionViewModel) -> ManifestSectionViewModel,
     private val adbSectionViewModelFactory: (AdbProfileId) -> AdbSectionViewModel,
     private val adbOutputViewModelFactory: (AdbProfileId) -> AdbOutputViewModel,
-){
+): ViewModel(){
 
     val packageNameSectionViewModel = packageNameSectionViewModelFactory(adbProfileId)
     val manifestSectionViewModel = manifestSectionViewModelFactory(packageNameSectionViewModel)

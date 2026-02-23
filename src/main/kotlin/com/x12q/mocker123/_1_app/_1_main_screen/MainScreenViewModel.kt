@@ -1,7 +1,6 @@
 package com.x12q.mocker123._1_app._1_main_screen
 
-import com.x12q.common_di.di.viewmodel_di.ViewModelFactory
-import com.x12q.common_di.di.window.WindowComponent
+import androidx.lifecycle.ViewModel
 import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.AdbProfileScreenViewModel
 import com.x12q.mocker123._2_service.local_service.adb_profile.AdbProfileRepoContainer
 import com.x12q.mocker123._2_service.local_service.adb_profile.data_structures.AdbProfile
@@ -14,6 +13,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import com.x12q.common_di.di.viewmodel_di.ViewModelFactory
+import com.x12q.mocker123.di.AppScope
 import me.tatarka.inject.annotations.Inject
 import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
 import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
@@ -23,7 +24,7 @@ import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 class MainScreenViewModel(
     val adbProfileRepoContainer: AdbProfileRepoContainer,
     private val adbProfileScreenViewModelFactory: (AdbProfileId) -> AdbProfileScreenViewModel,
-) {
+): ViewModel() {
 
     private val cr = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -71,8 +72,8 @@ class MainScreenViewModel(
     }
 
     @Inject
-    @ContributesBinding(WindowComponent.Scope::class, multibinding = true)
-    @SingleIn(WindowComponent.Scope::class)
+    @ContributesBinding(AppScope::class, multibinding = true)
+    @SingleIn(AppScope::class)
     class MainScreenViewModelFactory(
         private val create: () -> MainScreenViewModel,
     ) : ViewModelFactory {

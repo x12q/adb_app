@@ -19,6 +19,7 @@ import com.x12q.mocker123._1_app._1_main_screen._2_adb_profile_screen.AdbProfile
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.x12q.common_di.di.viewmodel_di.getVM
 import com.x12q.mocker123._2_service.local_service.adb_profile.errors.CannotLoadProfile
 import com.x12q.common_ui.text.ContentText
 import com.x12q.common_ui.theme.BaseTheme
@@ -27,7 +28,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MainScreen(
-    viewModel: MainScreenViewModel,
+    viewModel: MainScreenViewModel = getVM(),
     modifier: Modifier = Modifier
 ) {
     val repoCont = viewModel.adbProfileRepoContainer
