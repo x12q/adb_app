@@ -2,15 +2,15 @@ package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.es_for
 
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.messages.es.EscapeType
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.EsData
-import com.x12q.mocker123.di.AppGlobalComponent
+import com.x12q.mocker123.app.di.AppComponent
 import me.tatarka.inject.annotations.Inject
 import org.apache.commons.text.StringEscapeUtils
 import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
 import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 
 @Inject
-@ContributesBinding(AppGlobalComponent.Scope::class)
-@SingleIn(AppGlobalComponent.Scope::class)
+@ContributesBinding(AppComponent.Scope::class)
+@SingleIn(AppComponent.Scope::class)
 class EsFormatterImp : EsFormatter {
     override fun makeEsStringForCommandExecution(es: EsData): String? {
         return when (es.escapeType) {

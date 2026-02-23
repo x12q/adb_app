@@ -5,7 +5,7 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import kotlinx.coroutines.runBlocking
 import java.io.File
-import com.x12q.mocker123.di.AppGlobalComponent
+import com.x12q.mocker123.app.di.AppComponent
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import me.tatarka.inject.annotations.Inject
@@ -14,8 +14,8 @@ import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 import kotlin.io.path.Path
 
 @Inject
-@ContributesBinding(AppGlobalComponent.Scope::class)
-@SingleIn(AppGlobalComponent.Scope::class)
+@ContributesBinding(AppComponent.Scope::class)
+@SingleIn(AppComponent.Scope::class)
 class CommandRunnerImp : CommandRunner {
 
     override suspend fun run(commandInput: CommandInput): Result<CommandOutput, CommandRunnerError> {

@@ -1,4 +1,4 @@
-package com.x12q.mocker123.app.main_screen.tab_view
+package com.x12q.mocker123.app.title_bar.tab_view
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
