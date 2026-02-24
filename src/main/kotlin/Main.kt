@@ -19,6 +19,7 @@ import com.x12q.mocker123.app.title_bar.tab_view.TabBar
 import com.x12q.mocker123.app.title_bar.tab_view.TabView
 import com.x12q.mocker123.app.di.WithAppComponent
 import com.x12q.common_di.di.viewmodel_di.getVM
+import com.x12q.mocker123.app.theme.AppTheme
 import com.x12q.mocker123.app.title_bar.TitleBarViewModel
 import com.x12q.mocker123.app.title_bar.di.WithTitleBarSubComponent
 import org.jetbrains.compose.resources.stringResource
@@ -26,7 +27,7 @@ import org.jetbrains.compose.resources.stringResource
 
 fun main() {
     application {
-        BaseTheme(isDarkTheme = true) {
+        AppTheme(isDarkTheme = true) {
             WithAppComponent {
                 WithMainScreenComponent {
                     CommonWindow(

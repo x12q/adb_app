@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,13 +22,16 @@ import com.x12q.adb_app.generated.resources.app_package_name_placeholder
 import com.x12q.adb_app.generated.resources.copied
 import com.x12q.adb_app.generated.resources.manifest_section_title
 import com.x12q.common_ui.box.SurfaceBox
+import com.x12q.common_ui.corner4Border
 import com.x12q.common_ui.toast.Toast
 import com.x12q.common_ui.toast.ToastDuration
 import com.x12q.common_ui.toast.ToastText
 import com.x12q.common_ui.text.LabelText
 import com.x12q.common_ui.preview_views.previewApp
-import com.x12q.common_ui.text.SelectableBoxedText
+import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.mocker123.app.theme.AppTheme
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.jewel.ui.component.Text
 
 
 @Composable
@@ -56,7 +60,7 @@ fun ManifestSection(
         Box {
             val actualPackageName = packageName ?: stringResource(Res.string.app_package_name_placeholder)
 
-            ManifestText(actualPackageName, Modifier.fillMaxWidth())
+            ManifestTextBox(actualPackageName, Modifier.fillMaxWidth())
 
             val tobeCopiedText = buildAnnotatedManifestText(actualPackageName).text
 
@@ -85,15 +89,20 @@ fun ManifestSection(
 }
 
 @Composable
-private fun ManifestText(
+private fun ManifestTextBox(
     packageName: String,
     modifier: Modifier = Modifier
 ) {
     val annotatedString: AnnotatedString = buildAnnotatedManifestText(packageName)
-    SelectableBoxedText(
-        text = annotatedString,
-        modifier = modifier.fillMaxWidth(),
-    )
+    Box(
+        modifier
+            .corner4Border(color = AppTheme.appColor.textBoxBorderColor)
+            .padding(horizontal = 8.dp, vertical = 7.dp)
+    ) {
+        SelectionContainer {
+            Text(annotatedString, style = BaseTheme.typography.content)
+        }
+    }
 }
 
 @Preview

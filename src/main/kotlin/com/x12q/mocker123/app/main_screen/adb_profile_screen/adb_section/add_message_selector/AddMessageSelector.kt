@@ -27,6 +27,7 @@ import com.x12q.adb_app.generated.resources.more_button_icon
 import com.x12q.common_ui.cornerXBorder
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.previewApp
+import com.x12q.common_ui.text.ButtonText
 import com.x12q.common_ui.text.ContentText
 import com.x12q.common_ui.theme.BaseTheme
 import org.jetbrains.compose.resources.painterResource
@@ -79,7 +80,7 @@ private fun AddMessageButton(
                 onClick()
             }
     ) {
-        ContentText(stringResource(Res.string.add_message_btn), modifier = Modifier
+        ButtonText(stringResource(Res.string.add_message_btn), modifier = Modifier
             .padding(vertical = 5.dp)
             .align(Alignment.Center))
     }
