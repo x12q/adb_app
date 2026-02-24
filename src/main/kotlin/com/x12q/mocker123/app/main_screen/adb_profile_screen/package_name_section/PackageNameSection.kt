@@ -1,12 +1,16 @@
 package com.x12q.mocker123.app.main_screen.adb_profile_screen.package_name_section
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -21,7 +25,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.x12q.adb_app.generated.resources.Res
 import com.x12q.adb_app.generated.resources.app_package_name_placeholder
+import com.x12q.adb_app.generated.resources.manifest_config
 import com.x12q.adb_app.generated.resources.package_name_section_title
+import com.x12q.adb_app.generated.resources.target_app
 import com.x12q.adb_app.generated.resources.target_application
 import com.x12q.common_ui.box.CenterAlignBox
 import com.x12q.common_ui.corner6Border
@@ -34,8 +40,11 @@ import com.x12q.common_ui.spacer.VSpacer
 import com.x12q.common_ui.text.ContentText
 import com.x12q.common_ui.text.LabelText
 import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionIcon
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionTitle
 import com.x12q.mocker123.app.theme.AppTheme
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -56,17 +65,25 @@ fun PackageNameSection(
 ) {
 
     Column(modifier) {
-        SectionTitle(stringResource(Res.string.target_application))
+        SectionTitle(
+            text = stringResource(Res.string.target_application),
+            icon = {
+                SectionIcon(Res.drawable.target_app)
+            }
+
+        )
         LabelText(stringResource(Res.string.package_name_section_title))
         VSpacer(10.dp)
 
-        PackageNameTextField(packageName ?: "",
+        PackageNameTextField(
+            packageName ?: "",
             hint = stringResource(Res.string.app_package_name_placeholder),
             readOnly = false,
             onTextChange = { newText ->
                 onPackageNameChange(newText)
             },
-            modifier = Modifier.fillMaxWidth())
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 

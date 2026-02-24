@@ -6,6 +6,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.mocker123.app.theme.AppTheme
 
 private val _1st_PartOfManifest = """
 <receiver
@@ -30,14 +31,18 @@ fun buildAnnotatedManifestText(
     packageName: String
 ): AnnotatedString {
     return buildAnnotatedString {
-        withStyle(style =BaseTheme.typography.contentSpanStyle){
+        withStyle(style =BaseTheme.typography.contentSpanStyle.copy(
+            color = AppTheme.appColor.adbNotificationColor.nonEditContentText
+        )){
             append(_1st_PartOfManifest)
         }
         withStyle(style = BaseTheme.typography.highlightedContentSpanStyle.copy(
             color = Color.Yellow
         )) { append(packageName) }
 
-        withStyle(style =BaseTheme.typography.contentSpanStyle){
+        withStyle(style =BaseTheme.typography.contentSpanStyle.copy(
+            color = AppTheme.appColor.adbNotificationColor.nonEditContentText
+        )){
             append(_2nd_PartOfManifest)
         }
     }
