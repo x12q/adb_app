@@ -23,6 +23,7 @@ import com.x12q.common_di.di.viewmodel_di.getVM
 import com.x12q.mocker123.service.local_service.adb_profile.errors.CannotLoadProfile
 import com.x12q.common_ui.text.ContentText
 import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.mocker123.app.theme.AppTheme
 import org.jetbrains.compose.resources.stringResource
 
 
@@ -57,21 +58,21 @@ fun MainScreen(
 
 @Composable
 fun LoadingScreen() {
-    Box(Modifier.fillMaxSize().background(BaseTheme.colors.baseColors.surface1), contentAlignment = Alignment.Center) {
+    Box(Modifier.fillMaxSize().background(AppTheme.appColor.adbNotificationColor.appBackground), contentAlignment = Alignment.Center) {
         CircularProgressIndicator(color = BaseTheme.colors.baseColors.primary, strokeWidth = 5.dp)
     }
 }
 
 @Composable
 fun EmptyDefaultScreen() {
-    Box(Modifier.fillMaxSize().background(BaseTheme.colors.baseColors.surface1), contentAlignment = Alignment.Center) {
+    Box(Modifier.fillMaxSize().background(AppTheme.appColor.adbNotificationColor.appBackground), contentAlignment = Alignment.Center) {
         ContentText(stringResource(Res.string.no_profile))
     }
 }
 
 @Composable
 fun ErrorScreen(errMsg: String) {
-    Box(Modifier.fillMaxSize().background(BaseTheme.colors.baseColors.surface1), contentAlignment = Alignment.Center) {
+    Box(Modifier.fillMaxSize().background(AppTheme.appColor.adbNotificationColor.appBackground), contentAlignment = Alignment.Center) {
         ContentText(errMsg)
     }
 }

@@ -1,0 +1,23 @@
+package com.x12q.mocker123.app.theme
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.common_ui.theme.BaseTypography.jetBrainMonoFontFamily
+
+
+object AppStyle {
+    val sectionTitle: TextStyle
+        @Composable get() = TextStyle(
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = jetBrainMonoFontFamily,
+            lineHeight = 1.4.sp,
+            letterSpacing = 0.1.sp,
+            color = AppTheme.appColor.adbNotificationColor.sectionLabel
+        )
+
+
+}

@@ -29,6 +29,7 @@ import com.x12q.common_ui.spacer.VSpacer
 import com.x12q.common_ui.theme.BaseTheme
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.spacer.HSpacer
+import com.x12q.mocker123.app.theme.AppTheme
 
 /**
  * Idea setup:
@@ -46,7 +47,7 @@ fun AdbProfileScreen(
     Row(
         modifier = modifier
             .fillMaxSize()
-            .background(BaseTheme.colors.baseColors.surface1)
+            .background(AppTheme.appColor.adbNotificationColor.appBackground)
             .padding(10.dp),
     ) {
         Column(Modifier.weight(0.3f)) {
@@ -89,7 +90,7 @@ fun SectionBox(
 ) {
     Box(
         modifier = modifier
-            .border(1.dp, Color.Red, BaseTheme.shapes.corner12)
+            .border(1.dp, AppTheme.appColor.adbNotificationColor.sectionBorder, AppTheme.baseTheme.shapes.corner12)
             .clip(BaseTheme.shapes.corner12)
             .padding(10.dp),
         contentAlignment=contentAlignment,

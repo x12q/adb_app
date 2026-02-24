@@ -4,11 +4,14 @@ import androidx.compose.ui.graphics.Color
 import com.x12q.common_ui.theme.BaseColors
 
 data class AdbNotificationColor(
-    val background1: Color = Color(0xFF0F172A),
-    val background2: Color = Color(0xFF0F172A),
+    val appBackground: Color = Color(0xFF0F172A),
+    val packageNameBackground: Color = Color(0xFF1E293B),
+    val packageNameBorder: Color = Color(0xFF334155),
+    val sectionBackground: Color = Color(0xFF0F172A),
+    val sectionBorder: Color = Color(0xFF1E293B),
     val button: Color = Color(0xFF195DE6),
     val buttonText: Color = Color.White,
-    val labelText0: Color = Color(0xFFF1F5F9),
+    val sectionLabel: Color = Color(0xFFF1F5F9),
     val labelText1: Color = Color(0xFF94A3B8),
     val iconTint1: Color = Color(0xFF195DE6),
     val iconTintOnButton: Color = Color.White,
@@ -27,12 +30,10 @@ data class AdbNotificationColor(
 
 data class AppColor(
     val textBoxBorderColor: Color,
-
-
-    ) {
+    val adbNotificationColor: AdbNotificationColor,
+) {
     companion object {
-        val dark = AppColor(BaseColors.Dark.default.onSurface2)
-        val light = AppColor(BaseColors.Light.default.onSurface2)
+        val dark = AppColor(BaseColors.Dark.default.onSurface2, adbNotificationColor = AdbNotificationColor.dark)
         val default = dark
     }
 }

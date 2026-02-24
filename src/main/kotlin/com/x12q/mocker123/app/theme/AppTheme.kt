@@ -16,7 +16,11 @@ val LocalAppColorProvider = staticCompositionLocalOf{ AppColor.default }
 object AppTheme{
     val baseTheme = BaseTheme
     val appColor: AppColor @Composable get() = LocalAppColorProvider.current
+    val appStyle = AppStyle
 }
+
+
+
 
 @Composable
 fun AppTheme(
@@ -27,7 +31,7 @@ fun AppTheme(
         val appColor = if(isDarkTheme){
             AppColor.dark
         }else{
-            AppColor.light
+            AppColor.dark
         }
         CompositionLocalProvider(
             LocalAppColorProvider provides appColor,
