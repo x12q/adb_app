@@ -75,18 +75,18 @@ class AdbSectionViewModel(
 
     val adbPathStringFlow: MutableStateFlow<String?> = MutableStateFlow(null)
 
-    val pathIsOk: StateFlow<Boolean?> = adbPathStringFlow.map { pathStr->
-        if(pathStr.isNullOrEmpty()){
+    val pathIsOk: StateFlow<Boolean?> = adbPathStringFlow.map { pathStr ->
+        if (pathStr.isNullOrEmpty()) {
             true
-        }else{
-            try{
+        } else {
+            try {
                 Path.of(pathStr)
                 true
-            }catch (e: InvalidPathException){
+            } catch (e: InvalidPathException) {
                 false
             }
         }
-    }.toStateFlow(cr,null)
+    }.toStateFlow(cr, null)
 
     fun onAdbPathChange(newPath: String) {
         if (newPath.isEmpty()) {
@@ -175,32 +175,47 @@ class AdbSectionViewModel(
 
     fun addTitleEs() {
         val profile = currentProfile() ?: return
-        container.add(profile.addEs(
-            EsData.empty().copy(
-                key = "title",
-                keyIsLocked = true,
-                escapeType = EscapeType.PLAIN_TEXT,
+        container.add(
+            profile.addEs(
+                EsData.empty().copy(
+                    key = "title",
+                    keyIsLocked = true,
+                    escapeType = EscapeType.PLAIN_TEXT,
+                )
             )
-        ))
+        )
     }
 
     fun addBodyEs() {
         val profile = currentProfile() ?: return
-        container.add(profile.addEs(
-            EsData.empty().copy(
-                key = "body",
-                keyIsLocked = true,
-                escapeType = EscapeType.PLAIN_TEXT,
+        container.add(
+            profile.addEs(
+                EsData.empty().copy(
+                    key = "body",
+                    keyIsLocked = true,
+                    escapeType = EscapeType.PLAIN_TEXT,
+                )
             )
-        ))
+        )
     }
 
     fun onSelectMessageType(messageType: MessageType) {
         when (messageType) {
             MessageType.TITLE -> addTitleEs()
             MessageType.BODY -> addBodyEs()
-            MessageType.OTHER -> addBlankEs()
+            MessageType.JSON -> addBlankEsWithType(EscapeType.JSON)
+            MessageType.XML -> addBlankEsWithType(EscapeType.XML)
+            MessageType.PLAIN_TEXT -> addBlankEsWithType(EscapeType.PLAIN_TEXT)
         }
+    }
+
+    private fun addBlankEsWithType(escapeType: EscapeType) {
+        val profile = currentProfile() ?: return
+        container.add(
+            profile.addEs(
+                EsData.empty().copy(escapeType = escapeType)
+            )
+        )
     }
 
     fun onRemoveEsClick(esData: EsData) {
@@ -209,7 +224,7 @@ class AdbSectionViewModel(
     }
 
     fun onRemoveClick(entry: DataEntry) {
-        when(entry){
+        when (entry) {
             is EiData -> TODO()
             is EsData -> {
                 onRemoveEsClick(entry)
