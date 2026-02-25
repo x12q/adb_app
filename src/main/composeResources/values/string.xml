@@ -28,4 +28,7 @@
     <string name="no_profile">No profile, click "+" in the top-right corner to add a profile.</string>
     <string name="target_application">Target Application</string>
     <string name="manifest_config">Manifest config</string>
+    <string name="table_header_key">Key</string>
+    <string name="table_header_value">Value</string>
+    <string name="table_header_type">Type</string>
 </resources>

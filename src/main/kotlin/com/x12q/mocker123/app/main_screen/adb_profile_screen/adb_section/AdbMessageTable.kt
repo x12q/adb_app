@@ -7,6 +7,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.x12q.adb_app.generated.resources.Res
+import com.x12q.adb_app.generated.resources.table_header_key
+import com.x12q.adb_app.generated.resources.table_header_type
+import com.x12q.adb_app.generated.resources.table_header_value
 import com.x12q.adb_app.generated.resources.trash_bin_icon
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.DataEntry
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.EiData
@@ -27,6 +30,7 @@ import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.row.CenterAlignRow
 import com.x12q.mocker123.app.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AdbMessageTable(
@@ -65,9 +69,9 @@ private fun HeaderRow(modifier: Modifier = Modifier) {
             .background(AppTheme.appColor.adbNotificationColor.tableHeaderBackground)
             .padding(vertical = 4.dp),
     ) {
-        TableHeaderCell("Key", Modifier.weight(1f))
-        TableHeaderCell("Value", Modifier.weight(1f))
-        TableHeaderCell("Type", Modifier.weight(0.6f))
+        TableHeaderCell(stringResource(Res.string.table_header_key), Modifier.weight(1f))
+        TableHeaderCell(stringResource(Res.string.table_header_value), Modifier.weight(1f))
+        TableHeaderCell(stringResource(Res.string.table_header_type), Modifier.weight(0.6f))
         TableHeaderCell("", Modifier.weight(0.3f))
     }
 }
