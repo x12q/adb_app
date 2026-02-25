@@ -16,8 +16,21 @@ object AppStyle {
             fontFamily = jetBrainMonoFontFamily,
             lineHeight = 1.4.sp,
             letterSpacing = 0.1.sp,
-            color = AppTheme.appColor.adbNotificationColor.sectionLabel
         )
 
+    val tableHeader: TextStyle
+        @Composable get() = TextStyle(
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Medium,
+            fontFamily = jetBrainMonoFontFamily,
+            letterSpacing = 0.5.sp,
+        )
 
+    val content: TextStyle
+        @Composable get() = TextStyle(
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = jetBrainMonoFontFamily,
+            letterSpacing = 0.5.sp,
+        )
 }
