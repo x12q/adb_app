@@ -19,8 +19,9 @@ data class AdbNotificationColor(
     val nonEditTextBoxBackground: Color = Color(0xFF020617),
     val contentText: Color = Color.White,
     val tableHeaderText: Color = Color(0xFF94A3B8),
-    val tableHeaderBackground: Color = Color(0xFF94A3B8),
+    val tableHeaderBackground: Color = Color(0xFF1E293B),
     val tableIconTint: Color = Color(0xFF94A3B8),
+    val tableDivider: Color = Color(0xFF1E293B),
 ) {
     companion object {
         val dark = AdbNotificationColor()

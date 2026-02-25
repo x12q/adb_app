@@ -106,11 +106,12 @@ private fun PackageNameTextField(
         cursorBrush = SolidColor(BaseTheme.colors.baseColors.strongOnSurface1),
         decorationBox = { textView ->
             val showHint = hint != null && text.isNullOrEmpty()
-            CenterAlignBox(
+            Box(
                 Modifier
                     .corner6Border(color = AppTheme.appColor.adbNotificationColor.packageNameBorder)
                     .background(AppTheme.appColor.adbNotificationColor.packageNameBackground)
-                    .padding(vertical = 10.dp)
+                    .padding(6.dp)
+
 
             ) {
                 if (showHint) {

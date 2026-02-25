@@ -109,7 +109,7 @@ private fun ManifestTextBox(
     val annotatedString: AnnotatedString = buildAnnotatedManifestText(packageName)
     Box(
         modifier
-            .corner6Border(color = Color.Transparent)
+            .corner6Border(color = AppTheme.appColor.adbNotificationColor.nonEditTextBoxBackground)
             .background(color = AppTheme.appColor.adbNotificationColor.nonEditTextBoxBackground)
             .padding(horizontal = 8.dp, vertical = 7.dp)
     ) {
