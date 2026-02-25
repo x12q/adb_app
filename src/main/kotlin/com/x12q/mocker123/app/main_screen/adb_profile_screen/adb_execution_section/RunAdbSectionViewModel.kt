@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.x12q.common_utils.toStateFlow
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.AdbCommandState
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.adb_command_builder.AdbCommandBuildOutput
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.adb_command_builder.AdbCommandBuilder
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.AdbCommandState
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.adb_command_builder.AdbCommandBuildOutput
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.adb_command_builder.AdbCommandBuilder
 import com.x12q.mocker123.service.local_service.adb_profile.AdbProfileRepoContainer
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.AdbOutput
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.AdbProfile

@@ -1,4 +1,4 @@
-package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section
+package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -20,6 +20,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -30,8 +31,7 @@ import com.x12q.common_ui.corner12Border
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.row.CenterAlignRow
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.messages.es.EscapeTypeLabel
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.messages.es.getLabel
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es.EscapeTypeLabel
 import com.x12q.mocker123.app.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -39,7 +39,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun AdbMessageTable(
     dataEntries: List<DataEntry>,
-    onChange: (newEntry:DataEntry) -> Unit,
+    onChange: (newEntry: DataEntry) -> Unit,
     onDeleteEntry: (DataEntry) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -47,7 +47,7 @@ fun AdbMessageTable(
         modifier = modifier
             .corner12Border(color = AppTheme.appColor.adbNotificationColor.sectionBorder)
     ) {
-        HeaderRow()
+        TableHeaderRow()
         Column(
             Modifier
                 .background(AppTheme.appColor.adbNotificationColor.appBackground)
@@ -67,17 +67,34 @@ fun AdbMessageTable(
     }
 }
 
+
+private object TableWeights {
+    const val key = 1f
+    const val value = 1f
+    const val type = 0.6f
+    const val action = 0.3f
+}
+
 @Composable
-private fun HeaderRow(modifier: Modifier = Modifier) {
+private fun TableHeaderRow(modifier: Modifier = Modifier) {
     CenterAlignRow(
         modifier
             .background(AppTheme.appColor.adbNotificationColor.tableHeaderBackground)
             .padding(vertical = 4.dp),
     ) {
-        TableHeaderCell(stringResource(Res.string.table_header_key), Modifier.weight(1f))
-        TableHeaderCell(stringResource(Res.string.table_header_value), Modifier.weight(1f))
-        TableHeaderCell(stringResource(Res.string.table_header_type), Modifier.weight(0.6f))
-        TableHeaderCell("", Modifier.weight(0.3f))
+        TableHeaderCell(
+            stringResource(Res.string.table_header_key),
+            Modifier.weight(TableWeights.key).padding(start = 10.dp)
+        )
+        TableHeaderCell(
+            stringResource(Res.string.table_header_value),
+            Modifier.weight(TableWeights.value).padding(start = 10.dp)
+        )
+        TableHeaderCell(
+            stringResource(Res.string.table_header_type),
+            Modifier.weight(TableWeights.type).padding(start = 10.dp)
+        )
+        TableHeaderCell("", Modifier.weight(TableWeights.action).padding(start = 10.dp))
     }
 }
 
@@ -103,12 +120,24 @@ private fun EsEntryRow(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(vertical = 2.dp),
     ) {
-        TableContentText(entry.key ?: "", Modifier.weight(1f))
-        TableEditableText(text = entry.value ?: "", onTextChange = { onChange(entry.copy(value = it)) }, modifier = Modifier.weight(1f))
-        TableContentCell(Modifier.weight(0.6f)) {
-            EscapeTypeLabel(type = entry.escapeType, fontSize = AppTheme.appStyle.content.fontSize, onClick = null)
+        TableEditableText(
+            text = entry.key ?: "",
+            onTextChange = { onChange(entry.copy(key = it)) },
+            modifier = Modifier.weight(TableWeights.key).padding(start = 10.dp)
+        )
+        TableEditableText(
+            text = entry.value ?: "",
+            onTextChange = { onChange(entry.copy(value = it)) },
+            modifier = Modifier.weight(TableWeights.value).padding(start = 10.dp)
+        )
+        TableContentCell(Modifier.weight(TableWeights.type).padding(start = 10.dp)) {
+            EscapeTypeLabel(
+                type = entry.escapeType,
+                fontSize = AppTheme.appStyle.content.fontSize,
+                onClick = null
+            )
         }
-        TableContentCell(Modifier.weight(0.3f)) {
+        TableContentCell(Modifier.weight(TableWeights.action).padding(start = 10.dp)) {
             DeleteButton(onDeleteClick)
         }
     }
@@ -124,10 +153,14 @@ private fun EiEntryRow(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(vertical = 2.dp),
     ) {
-        TableContentText(entry.key ?: "", Modifier.weight(1f))
-        TableEditableText(text = entry.value.toString(), onTextChange = { onChange(entry.copy(value = it.toIntOrNull() ?: entry.value)) }, modifier = Modifier.weight(1f))
-        TableContentText("ei", Modifier.weight(0.6f))
-        TableContentCell(Modifier.weight(0.3f)) {
+        TableContentText(entry.key ?: "", Modifier.weight(TableWeights.key))
+        TableEditableText(
+            text = entry.value.toString(),
+            onTextChange = { onChange(entry.copy(value = it.toIntOrNull() ?: entry.value)) },
+            modifier = Modifier.weight(TableWeights.value)
+        )
+        TableContentText("ei", Modifier.weight(TableWeights.type))
+        TableContentCell(Modifier.weight(TableWeights.action)) {
             DeleteButton(onDeleteClick)
         }
     }
@@ -149,7 +182,7 @@ private fun TableHeaderCell(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier.padding(start = 10.dp),
+        modifier = modifier,
         contentAlignment = Alignment.CenterStart
     ) {
         Text(

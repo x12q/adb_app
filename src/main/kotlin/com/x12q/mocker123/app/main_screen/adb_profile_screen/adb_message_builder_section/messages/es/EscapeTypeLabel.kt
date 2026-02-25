@@ -1,4 +1,4 @@
-package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.messages.es
+package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.clickable

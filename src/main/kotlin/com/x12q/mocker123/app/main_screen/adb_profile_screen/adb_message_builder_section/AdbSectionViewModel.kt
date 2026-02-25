@@ -1,11 +1,11 @@
-package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section
+package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.adb_command_builder.AdbCommandBuildOutput
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.adb_command_builder.AdbCommandBuilder
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.add_message_selector.MessageType
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.messages.es.EscapeType
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.adb_command_builder.AdbCommandBuildOutput
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.adb_command_builder.AdbCommandBuilder
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.MessageType
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es.EscapeType
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.EsData
 import com.x12q.mocker123.service.local_service.adb_profile.AdbProfileRepoContainer
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.AdbOutput

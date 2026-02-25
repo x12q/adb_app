@@ -1,11 +1,11 @@
-package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.adb_command_builder.sub_builder
+package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.adb_command_builder.sub_builder
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.es_formatter.EsFormatter
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.es_formatter.EsFormatter
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.AdbProfile
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.EsData
 import com.x12q.mocker123.app.di.AppComponent

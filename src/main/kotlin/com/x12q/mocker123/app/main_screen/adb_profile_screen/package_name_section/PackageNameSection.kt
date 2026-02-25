@@ -31,9 +31,6 @@ import com.x12q.adb_app.generated.resources.target_app
 import com.x12q.adb_app.generated.resources.target_application
 import com.x12q.common_ui.box.CenterAlignBox
 import com.x12q.common_ui.corner6Border
-import com.x12q.common_ui.input_field.BoxedTextField
-import com.x12q.common_ui.input_field.InputFieldWithLabel
-import com.x12q.common_ui.input_field.TextContainerWithHint
 import com.x12q.common_ui.preview_views.PreviewBigBoxOnSurface
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.spacer.VSpacer

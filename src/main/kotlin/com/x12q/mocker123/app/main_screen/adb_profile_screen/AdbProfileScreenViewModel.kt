@@ -3,7 +3,7 @@ package com.x12q.mocker123.app.main_screen.adb_profile_screen
 import androidx.lifecycle.ViewModel
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.package_name_section.PackageNameSectionViewModel
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.manifest_section.ManifestSectionViewModel
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.AdbSectionViewModel
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.AdbSectionViewModel
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_output.AdbOutputViewModel
 import com.x12q.mocker123.service.local_service.adb_profile.AdbProfileRepoContainer
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.AdbProfileId

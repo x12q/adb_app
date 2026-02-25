@@ -1,6 +1,6 @@
 package com.x12q.mocker123.service.local_service.adb_profile.data_structures
 
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.messages.es.EscapeType
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es.EscapeType
 import com.x12q.common_utils.RandomUtils
 import java.util.UUID
 import kotlin.random.Random
