@@ -18,6 +18,8 @@ import com.x12q.mocker123.service.system_service.command_runner.CommandInput
 import com.x12q.mocker123.service.system_service.command_runner.CommandRunner
 import com.x12q.mocker123.service.system_service.system_clipboard.SystemClipboardProvider
 import com.x12q.common_utils.toStateFlow
+import com.x12q.mocker123.service.local_service.adb_profile.data_structures.DataEntry
+import com.x12q.mocker123.service.local_service.adb_profile.data_structures.EiData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -154,6 +156,13 @@ class AdbSectionViewModel(
         }
     }
 
+    fun onEntryChange(entry: DataEntry) {
+        when (entry) {
+            is EsData -> onEsChange(entry)
+            is EiData -> {}
+        }
+    }
+
     fun onEsChange(newEs: EsData) {
         val profile = currentProfile() ?: return
         container.add(profile.updateEs(newEs.coerceToEmptyIfNeed()))
@@ -197,6 +206,15 @@ class AdbSectionViewModel(
     fun onRemoveEsClick(esData: EsData) {
         val profile = currentProfile() ?: return
         container.add(profile.removeEs(esData))
+    }
+
+    fun onRemoveClick(entry: DataEntry) {
+        when(entry){
+            is EiData -> TODO()
+            is EsData -> {
+                onRemoveEsClick(entry)
+            }
+        }
     }
 
 

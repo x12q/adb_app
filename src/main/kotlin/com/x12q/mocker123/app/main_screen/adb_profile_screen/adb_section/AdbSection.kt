@@ -37,7 +37,7 @@ import com.x12q.mocker123.app.main_screen.adb_profile_screen.manifest_section.Co
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.adb_command_builder.AdbCommandBuilderError
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.add_message_selector.AddMessageSelector
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.add_message_selector.MessageType
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.messages.es.EsField
+import com.x12q.mocker123.service.local_service.adb_profile.data_structures.DataEntry
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.EsData
 import com.x12q.common_ui.row.CenterAlignRow
 import com.x12q.common_ui.button.Button2
@@ -61,7 +61,7 @@ fun AdbSection(
     modifier: Modifier = Modifier,
 ) {
     val commandState = viewModel.adbCommandStateFlow.collectAsState().value
-    val esDataList: List<EsData> = viewModel.esMapFlow.collectAsState().value.values.toList()
+    val dataEntries: List<DataEntry> = viewModel.esMapFlow.collectAsState().value.values.toList()
 
     val command = ((commandState as? AdbCommandState.Available)?.adbCommandOutput)?.annotatedCommand
     val status = commandState.makeStatusMessage()
@@ -70,11 +70,11 @@ fun AdbSection(
     AdbSection(
         commandText = command,
         status = status,
-        esList = esDataList,
-        onEsChange = viewModel::onEsChange,
+        dataEntries = dataEntries,
+        onChange = viewModel::onEntryChange,
         enableRunButton = enableRunButton,
         onAddEsClick = viewModel::addBlankEs,
-        onRemoveEsClick = viewModel::onRemoveEsClick,
+        onDeleteEntry = viewModel::onRemoveClick,
         onRunClick = viewModel::onRunClick,
         onCopyClick = viewModel::onCopyClick,
         onSelectMessageType = viewModel::onSelectMessageType,
@@ -89,13 +89,13 @@ fun AdbSection(
 internal fun AdbSection(
     commandText: AnnotatedString?,
     status: String,
-    esList: List<EsData>,
-    onEsChange: (newEs: EsData) -> Unit,
+    dataEntries: List<DataEntry>,
+    onChange: (DataEntry) -> Unit,
     onCopyClick: () -> Unit,
     enableRunButton: Boolean,
     onAddEsClick: () -> Unit,
     onSelectMessageType: (MessageType) -> Unit,
-    onRemoveEsClick: (EsData) -> Unit,
+    onDeleteEntry: (DataEntry) -> Unit,
     onRunClick: () -> Unit,
     currentAdbPath: String?,
     showPathError: Boolean,
@@ -129,34 +129,11 @@ internal fun AdbSection(
             )
             AdbCommandTextBox(command = commandText, onCopyClick = onCopyClick, modifier = Modifier.weight(0.5f))
 
-            Column(
-                verticalArrangement = Arrangement.spacedBy(15.dp),
-                modifier = Modifier.weight(0.5f).verticalScroll(rememberScrollState())
-            ) {
-                for (es in esList) {
-                    EsField(
-                        esKey = es.key,
-                        esValue = es.value,
-                        escapeType = es.escapeType,
-                        keyIsLocked = es.keyIsLocked,
-                        onKeyChange = { newKey ->
-                            val newEs = es.copy(key = newKey)
-                            onEsChange(newEs)
-                        },
-                        onValueChange = { newValue ->
-                            val newEs = es.copy(value = newValue)
-                            onEsChange(newEs)
-                        },
-                        onRemoveClick = {
-                            onRemoveEsClick(es)
-                        },
-                        onEscapeTypeChange = { newEscapeType ->
-                            val newEs = es.copy(escapeType = newEscapeType)
-                            onEsChange(newEs)
-                        }
-                    )
-                }
-            }
+            AdbMessageTable(
+                dataEntries = dataEntries,
+                onChange = onChange,
+                onDeleteEntry = onDeleteEntry,
+            )
         }
     }
 }
@@ -285,12 +262,12 @@ private fun Preview_AdbSection() {
                 commandText = AnnotatedString(text = "adb abc.qwe.123"),
                 status = "status",
                 enableRunButton = true,
-                esList = List(3) {
+                dataEntries = List(3) {
                     EsData.random()
                 },
-                onEsChange = {},
+                onChange = {},
                 onAddEsClick = {},
-                onRemoveEsClick = {},
+                onDeleteEntry = {},
                 onRunClick = {},
                 onCopyClick = {},
                 onSelectMessageType = {},

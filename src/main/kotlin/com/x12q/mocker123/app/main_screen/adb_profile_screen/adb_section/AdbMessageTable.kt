@@ -16,6 +16,8 @@ import com.x12q.mocker123.service.local_service.adb_profile.data_structures.EiDa
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.EsData
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,6 +37,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun AdbMessageTable(
     dataEntries: List<DataEntry>,
+    onChange: (newEntry:DataEntry) -> Unit,
     onDeleteEntry: (DataEntry) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -56,7 +59,7 @@ fun AdbMessageTable(
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-                MessageEntryRow(entry = entry, onDeleteClick = { onDeleteEntry(entry) })
+                MessageEntryRow(entry = entry, onChange = onChange, onDeleteClick = { onDeleteEntry(entry) })
             }
         }
     }
@@ -79,33 +82,47 @@ private fun HeaderRow(modifier: Modifier = Modifier) {
 @Composable
 private fun MessageEntryRow(
     entry: DataEntry,
+    onChange: (newEntry: DataEntry) -> Unit,
     onDeleteClick: () -> Unit,
 ) {
-    val key: String
-    val value: String
-    val type: String
-
     when (entry) {
-        is EsData -> {
-            key = entry.key ?: ""
-            value = entry.value ?: ""
-            type = "es"
-        }
-
-        is EiData -> {
-            key = entry.key ?: ""
-            value = entry.value.toString()
-            type = "ei"
-        }
+        is EsData -> EsEntryRow(entry = entry, onChange = onChange, onDeleteClick = onDeleteClick)
+        is EiData -> EiEntryRow(entry = entry, onChange = onChange, onDeleteClick = onDeleteClick)
     }
+}
 
+@Composable
+private fun EsEntryRow(
+    entry: EsData,
+    onChange: (newEntry: EsData) -> Unit,
+    onDeleteClick: () -> Unit,
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(vertical = 2.dp),
     ) {
-        TableContentText(key, Modifier.weight(1f))
-        TableContentText(value, Modifier.weight(1f))
-        TableContentText(type, Modifier.weight(0.6f))
+        TableContentText(entry.key ?: "", Modifier.weight(1f))
+        TableEditableText(text = entry.value ?: "", onTextChange = { onChange(entry.copy(value = it)) }, modifier = Modifier.weight(1f))
+        TableContentText("es", Modifier.weight(0.6f))
+        TableContentCell(Modifier.weight(0.3f)) {
+            DeleteButton(onDeleteClick)
+        }
+    }
+}
+
+@Composable
+private fun EiEntryRow(
+    entry: EiData,
+    onChange: (newEntry: EiData) -> Unit,
+    onDeleteClick: () -> Unit,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(vertical = 2.dp),
+    ) {
+        TableContentText(entry.key ?: "", Modifier.weight(1f))
+        TableEditableText(text = entry.value.toString(), onTextChange = { onChange(entry.copy(value = it.toIntOrNull() ?: entry.value)) }, modifier = Modifier.weight(1f))
+        TableContentText("ei", Modifier.weight(0.6f))
         TableContentCell(Modifier.weight(0.3f)) {
             DeleteButton(onDeleteClick)
         }
@@ -157,6 +174,25 @@ private fun TableContentText(
 }
 
 @Composable
+private fun TableEditableText(
+    text: String,
+    onTextChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    singleLine: Boolean = true,
+) {
+    BasicTextField(
+        value = text,
+        onValueChange = onTextChange,
+        singleLine = singleLine,
+        textStyle = AppTheme.appStyle.content.copy(
+            color = AppTheme.appColor.adbNotificationColor.tableContentText,
+        ),
+        cursorBrush = SolidColor(AppTheme.appColor.adbNotificationColor.tableContentTextCursor),
+        modifier = modifier,
+    )
+}
+
+@Composable
 private fun TableContentCell(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
@@ -179,6 +215,7 @@ private fun Preview_AdbMessageTable() {
                 EsData.random(),
                 EiData(id = "ei1", key = "counter", value = 42),
             ),
+            onChange = {},
             modifier = Modifier.fillMaxWidth().padding(20.dp),
         )
     }
