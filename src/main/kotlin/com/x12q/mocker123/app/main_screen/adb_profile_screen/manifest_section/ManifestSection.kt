@@ -35,6 +35,7 @@ import com.x12q.common_ui.text.LabelText
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.theme.BaseTheme
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.NonEditSelectableTextBox
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionBox
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionIcon
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionTitle
 import com.x12q.mocker123.app.theme.AppTheme
@@ -46,13 +47,15 @@ import org.jetbrains.jewel.ui.component.Text
 
 @Composable
 fun ManifestSection(
-    viewModel: ManifestSectionViewModel
+    viewModel: ManifestSectionViewModel,
+    modifier: Modifier = Modifier,
 ) {
     ManifestSection(
         packageName = viewModel.packageNameFlow.collectAsState().value,
         onCopyClick = { text ->
             viewModel.onClickCopy(text)
-        }
+        },
+        modifier = modifier,
     )
 }
 
@@ -62,43 +65,45 @@ fun ManifestSection(
     onCopyClick: (text: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    SectionBox(modifier) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
 
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            SectionTitle(stringResource(Res.string.manifest_config), icon = {
+                SectionIcon(Res.drawable.manifest_config)
+            })
 
-        SectionTitle(stringResource(Res.string.manifest_config), icon = {
-            SectionIcon(Res.drawable.manifest_config)
-        })
+            LabelText(stringResource(Res.string.manifest_section_title))
 
-        LabelText(stringResource(Res.string.manifest_section_title))
+            Box {
+                val actualPackageName = packageName ?: stringResource(Res.string.app_package_name_placeholder)
 
-        Box {
-            val actualPackageName = packageName ?: stringResource(Res.string.app_package_name_placeholder)
+                ManifestTextBox(actualPackageName, Modifier.fillMaxWidth())
 
-            ManifestTextBox(actualPackageName, Modifier.fillMaxWidth())
+                val tobeCopiedText = buildAnnotatedManifestText(actualPackageName).text
 
-            val tobeCopiedText = buildAnnotatedManifestText(actualPackageName).text
+                var showToast by remember { mutableStateOf(false) }
 
-            var showToast by remember { mutableStateOf(false) }
+                CopyButton(
+                    onCopyClick = {
+                        onCopyClick(tobeCopiedText)
+                        showToast = true
+                    },
+                    modifier = Modifier.align(Alignment.TopEnd).padding(8.dp),
+                )
 
-            CopyButton(
-                onCopyClick = {
-                    onCopyClick(tobeCopiedText)
-                    showToast = true
-                },
-                modifier = Modifier.align(Alignment.TopEnd).padding(8.dp),
-            )
-
-            Toast(
-                initVisibility = showToast,
-                duration = ToastDuration.MEDIUM,
-                onVisibilityChange = {
-                    showToast = it
-                },
-                modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 15.dp)
-            ) {
-                ToastText(stringResource(Res.string.copied))
+                Toast(
+                    initVisibility = showToast,
+                    duration = ToastDuration.MEDIUM,
+                    onVisibilityChange = {
+                        showToast = it
+                    },
+                    modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 15.dp)
+                ) {
+                    ToastText(stringResource(Res.string.copied))
+                }
             }
         }
+
     }
 }
 

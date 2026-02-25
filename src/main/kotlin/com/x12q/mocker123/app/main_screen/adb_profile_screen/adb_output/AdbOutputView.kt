@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.AdbOutput
 import com.x12q.common_ui.box.BasicBorderContentBox
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionBox
 import com.x12q.common_ui.theme.BaseTheme
 import kotlinx.datetime.Clock
 
@@ -40,8 +41,9 @@ fun AdbOutputView(
     onClearLogClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    SectionBox(modifier) {
     BasicBorderContentBox(
-        modifier = modifier
+        modifier = Modifier
             .background(BaseTheme.colors.baseColors.surface2)
             .fillMaxWidth()
             .fillMaxHeight()
@@ -56,6 +58,7 @@ fun AdbOutputView(
             }
         }
         ClearLogButton(onClick = onClearLogClick, modifier = Modifier.align(Alignment.TopEnd))
+    }
     }
 }
 

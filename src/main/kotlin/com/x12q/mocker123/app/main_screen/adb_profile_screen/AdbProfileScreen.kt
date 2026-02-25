@@ -52,32 +52,27 @@ fun AdbProfileScreen(
             .padding(10.dp),
     ) {
         Column(Modifier.weight(0.3f)) {
-            SectionBox(Modifier.fillMaxWidth()) {
-                PackageNameSection(viewModel.packageNameSectionViewModel)
-            }
+            PackageNameSection(viewModel.packageNameSectionViewModel, modifier = Modifier.fillMaxWidth())
 
             VSpacer(8.dp)
 
-            SectionBox(Modifier.fillMaxSize()) {
-                ManifestSection(viewModel.manifestSectionViewModel)
-            }
+            ManifestSection(viewModel.manifestSectionViewModel, modifier = Modifier.fillMaxSize())
+
         }
 
         HSpacer(8.dp)
 
         Column(Modifier.weight(0.7f)) {
-            SectionBox(Modifier.weight(0.25f)) {
-                AdbSection(viewModel.adbSectionViewModel, modifier = Modifier.fillMaxSize())
-            }
-            VSpacer(8.dp)
 
-            RunAdbSection(adbProfileId = viewModel.adbProfileId,modifier = Modifier.weight(0.25f))
+            AdbSection(viewModel.adbSectionViewModel, modifier = Modifier.weight(0.25f))
 
             VSpacer(8.dp)
 
-            SectionBox(Modifier.weight(0.5f)) {
-                AdbOutputView(viewModel.adbOutputViewModel, modifier = Modifier.fillMaxSize())
-            }
+            RunAdbSection(adbProfileId = viewModel.adbProfileId, modifier = Modifier.weight(0.25f))
+
+            VSpacer(8.dp)
+
+            AdbOutputView(viewModel.adbOutputViewModel, modifier = Modifier.weight(0.5f).fillMaxSize())
         }
     }
 }
@@ -93,7 +88,7 @@ fun SectionBox(
             .border(1.dp, AppTheme.appColor.adbNotificationColor.sectionBorder, AppTheme.baseTheme.shapes.corner12)
             .clip(BaseTheme.shapes.corner12)
             .padding(10.dp),
-        contentAlignment=contentAlignment,
+        contentAlignment = contentAlignment,
     ) {
         content()
     }

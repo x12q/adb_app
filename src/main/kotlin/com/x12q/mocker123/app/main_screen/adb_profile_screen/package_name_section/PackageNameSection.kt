@@ -40,6 +40,7 @@ import com.x12q.common_ui.spacer.VSpacer
 import com.x12q.common_ui.text.ContentText
 import com.x12q.common_ui.text.LabelText
 import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionBox
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionIcon
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionTitle
 import com.x12q.mocker123.app.theme.AppTheme
@@ -50,10 +51,12 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun PackageNameSection(
     packageNameSectionViewModel: PackageNameSectionViewModel,
+    modifier: Modifier = Modifier,
 ) {
     PackageNameSection(
         packageName = packageNameSectionViewModel.packageNameFlow.collectAsState().value,
         onPackageNameChange = packageNameSectionViewModel::setPackageName,
+        modifier = modifier,
     )
 }
 
@@ -64,7 +67,8 @@ fun PackageNameSection(
     modifier: Modifier = Modifier
 ) {
 
-    Column(modifier) {
+    SectionBox(modifier) {
+    Column {
         SectionTitle(
             text = stringResource(Res.string.target_application),
             icon = {
@@ -84,6 +88,7 @@ fun PackageNameSection(
             },
             modifier = Modifier.fillMaxWidth()
         )
+    }
     }
 }
 
