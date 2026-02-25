@@ -18,6 +18,15 @@ object AppStyle {
             letterSpacing = 0.1.sp,
         )
 
+    val sectionSubTitle: TextStyle
+        @Composable get() = TextStyle(
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Thin,
+            fontFamily = jetBrainMonoFontFamily,
+            lineHeight = 1.4.sp,
+            letterSpacing = 0.1.sp,
+        )
+
     val tableHeader: TextStyle
         @Composable get() = TextStyle(
             fontSize = 13.sp,

@@ -34,6 +34,7 @@ import com.x12q.common_ui.toast.ToastText
 import com.x12q.common_ui.text.LabelText
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.NonEditSelectableTextBox
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionIcon
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionTitle
 import com.x12q.mocker123.app.theme.AppTheme
@@ -102,22 +103,13 @@ fun ManifestSection(
 }
 
 @Composable
-private fun ManifestTextBox(
+fun ManifestTextBox(
     packageName: String,
     modifier: Modifier = Modifier
 ) {
-    val annotatedString: AnnotatedString = buildAnnotatedManifestText(packageName)
-    Box(
-        modifier
-            .corner6Border(color = AppTheme.appColor.adbNotificationColor.nonEditTextBoxBackground)
-            .background(color = AppTheme.appColor.adbNotificationColor.nonEditTextBoxBackground)
-            .padding(horizontal = 8.dp, vertical = 7.dp)
-    ) {
-        SelectionContainer {
-            Text(annotatedString, style = BaseTheme.typography.content)
-        }
-    }
+    NonEditSelectableTextBox(buildAnnotatedManifestText(packageName), modifier)
 }
+
 
 @Preview
 @Composable

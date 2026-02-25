@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -52,6 +53,7 @@ import com.x12q.common_ui.preview_views.PreviewColumn
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.text.SelectableBoxedText
 import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionBox
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_section.messages.es.EsField
 import org.jetbrains.compose.resources.stringResource
 
@@ -103,131 +105,31 @@ internal fun AdbSection(
     onAdbPathChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Row(modifier = modifier) {
-        Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
-            AddMessageSelector(
-                onClick = onAddEsClick,
-                onSelectMessageType = onSelectMessageType,
-            )
-
-            RunAdbButton(
-                isEnabled = enableRunButton,
-                onClick = {
-                    onRunClick()
-                }
-            )
-            ContentText("Status: $status")
-        }
-
-        HSpacer(10.dp)
-
-        Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
-
-            AdbPathField(
-                currentAdbPath = currentAdbPath,
-                onAdbPathChange = onAdbPathChange,
-                showPathError = showPathError,
-            )
-            AdbCommandTextBox(command = commandText, onCopyClick = onCopyClick, modifier = Modifier.weight(0.5f))
-
-            AdbMessageTable(
-                dataEntries = dataEntries,
-                onChange = onChange,
-                onDeleteEntry = onDeleteEntry,
-            )
-        }
-    }
-}
-
-@Composable
-private fun AdbPathField(
-    currentAdbPath: String?,
-    onAdbPathChange: (String) -> Unit,
-    showPathError: Boolean,
-    modifier: Modifier = Modifier
-) {
-    CenterAlignRow(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = modifier,
-    ) {
-        InputFieldWithLabel(
-            label = stringResource(Res.string.change_adb_label),
-            text = currentAdbPath ?: "",
-            onTextChange = onAdbPathChange,
-            hint = stringResource(Res.string.change_adb_label_hint),
-            modifier = Modifier.weight(1f),
-            fieldModifier = Modifier.fillMaxWidth(),
-            fieldTextStyle = BaseTheme.typography.content.copy(
-                color = if (showPathError) {
-                    Color.Red
-                } else {
-                    BaseTheme.colors.baseColors.textOnSurface1
-                }
-            ),
-            singleLine = true,
-        )
-        if (showPathError) {
-            ContentText(
-                stringResource(Res.string.change_adb_path_error),
-                style = BaseTheme.typography.content.copy(
-                    color = Color.Red
+    SectionBox(modifier){
+        Row(Modifier.fillMaxSize()) {
+            Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
+                AddMessageSelector(
+                    onClick = onAddEsClick,
+                    onSelectMessageType = onSelectMessageType,
                 )
-            )
+
+                ContentText("Status: $status")
+            }
+
+            HSpacer(10.dp)
+
+            Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
+                AdbMessageTable(
+                    dataEntries = dataEntries,
+                    onChange = onChange,
+                    onDeleteEntry = onDeleteEntry,
+                )
+            }
         }
+
     }
 }
 
-@Composable
-private fun RunAdbButton(
-    isEnabled: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Button2(
-        onClick = onClick,
-        text = stringResource(Res.string.run_adb_btn),
-        enabled = isEnabled,
-        modifier = modifier,
-    )
-}
-
-@Composable
-private fun AdbCommandTextBox(
-    command: AnnotatedString?,
-    onCopyClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Box(modifier = modifier) {
-        SelectableBoxedText(
-            text = command ?: AnnotatedString(""),
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .verticalScroll(rememberScrollState()),
-        )
-
-        var showToast by remember { mutableStateOf(false) }
-        CopyButton(
-            onCopyClick = {
-                onCopyClick()
-                showToast = true
-            },
-            modifier = Modifier.align(Alignment.TopEnd).padding(8.dp),
-        )
-
-        Toast(
-            initVisibility = showToast,
-            duration = ToastDuration.MEDIUM,
-            onVisibilityChange = {
-                showToast = it
-            },
-            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 15.dp)
-        ) {
-            ToastText(stringResource(Res.string.copied))
-        }
-    }
-
-}
 
 
 @Composable

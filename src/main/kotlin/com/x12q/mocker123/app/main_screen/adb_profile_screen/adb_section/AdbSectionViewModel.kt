@@ -247,9 +247,3 @@ class AdbSectionViewModel(
         }
     }
 }
-
-
-fun main() {
-    val q = "a//"
-    println(Path.of(q))
-}
