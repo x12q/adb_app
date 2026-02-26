@@ -55,13 +55,13 @@ fun AdbMessageTable(
 
         ) {
             dataEntries.forEachIndexed { index, entry ->
-                if (index > 0) {
+                MessageEntryRow(entry = entry, onChange = onChange, onDeleteClick = { onDeleteEntry(entry) })
+                if (index < dataEntries.size) {
                     HorizontalDivider(
                         color = AppTheme.appColor.adbNotificationColor.tableDivider,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-                MessageEntryRow(entry = entry, onChange = onChange, onDeleteClick = { onDeleteEntry(entry) })
             }
         }
     }
@@ -69,7 +69,7 @@ fun AdbMessageTable(
 
 
 private object TableWeights {
-    const val key = 1f
+    const val key = 0.3f
     const val value = 1f
     const val type = 0.6f
     const val action = 0.3f
