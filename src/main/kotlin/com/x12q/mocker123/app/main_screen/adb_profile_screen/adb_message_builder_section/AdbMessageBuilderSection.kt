@@ -7,6 +7,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.michaelbull.result.Err
@@ -34,6 +38,7 @@ import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.AddJsonButton
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.AddTextButton
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.AddTitleButton
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.MessageTypeSelector
 import org.jetbrains.compose.resources.stringResource
 
 
@@ -74,11 +79,6 @@ internal fun AdbSection(
 
                 Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
 
-                    AddOtherMessageSelectorButton(
-                        onClick = onAddEsClick,
-                        onSelectMessageType = onSelectMessageType,
-                    )
-
                     AddTitleButton({
                         onSelectMessageType(MessageType.TITLE)
                     })
@@ -94,6 +94,16 @@ internal fun AdbSection(
                         onClick = {
                             onSelectMessageType(MessageType.PLAIN_TEXT)
                         }
+                    )
+
+                    var currentMessageType: MessageType? by remember { mutableStateOf(null) }
+                    MessageTypeSelector(
+                        currentMessageType = currentMessageType,
+                        items = listOf(MessageType.XML),
+                        onSelectType = {
+                            currentMessageType = it
+                            onSelectMessageType(it)
+                        },
                     )
                 }
             }
