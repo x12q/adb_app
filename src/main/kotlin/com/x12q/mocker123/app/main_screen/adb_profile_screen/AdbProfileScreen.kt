@@ -62,11 +62,11 @@ fun AdbProfileScreen(
 
             VSpacer(8.dp)
 
-            RunAdbSection(adbProfileId = viewModel.adbProfileId, modifier = Modifier.weight(0.25f))
+            RunAdbSection(adbProfileId = viewModel.adbProfileId, modifier = Modifier.weight(0.45f))
 
             VSpacer(8.dp)
 
-            AdbOutputView(viewModel.adbOutputViewModel, modifier = Modifier.weight(0.5f).fillMaxSize())
+            AdbOutputView(viewModel.adbOutputViewModel, modifier = Modifier.weight(0.3f).fillMaxSize())
         }
     }
 }

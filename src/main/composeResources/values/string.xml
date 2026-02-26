@@ -31,5 +31,6 @@
     <string name="table_header_value">Value</string>
     <string name="table_header_type">Type</string>
     <string name="run_adb_section">Run ADB</string>
+    <string name="generated_adb_command">Generated ADB command</string>
     <string name="adb_message_builder_section">Message Builder</string>
 </resources>

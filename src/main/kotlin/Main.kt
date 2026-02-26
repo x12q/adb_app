@@ -1,4 +1,5 @@
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -19,15 +20,21 @@ import com.x12q.mocker123.app.title_bar.tab_view.TabBar
 import com.x12q.mocker123.app.title_bar.tab_view.TabView
 import com.x12q.mocker123.app.di.WithAppComponent
 import com.x12q.common_di.di.viewmodel_di.getVM
+import com.x12q.common_ui.window.CommonDecoratedWindowStyle
 import com.x12q.mocker123.app.theme.AppTheme
+import com.x12q.mocker123.app.theme.AppTitleBarStyle
 import com.x12q.mocker123.app.title_bar.TitleBarViewModel
 import com.x12q.mocker123.app.title_bar.di.WithTitleBarSubComponent
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.jewel.intui.window.styling.dark
+import org.jetbrains.jewel.window.styling.LocalTitleBarStyle
+import org.jetbrains.jewel.window.styling.TitleBarColors
 
 
 fun main() {
+    val isDarkTheme = true
     application {
-        AppTheme(isDarkTheme = true) {
+        AppTheme(isDarkTheme = isDarkTheme) {
             WithAppComponent {
                 WithMainScreenComponent {
                     CommonWindow(
@@ -36,6 +43,8 @@ fun main() {
                             placement = WindowPlacement.Floating,
                             position = WindowPosition(Alignment.Center)
                         ),
+                        titleBarStyle = AppTitleBarStyle(isDarkTheme),
+                        decoratedWindowStyle = CommonDecoratedWindowStyle(isDarkTheme),
                         onCloseRequest = {
                             appComponent.getAdbProfileRepoContainer().save()
                             exitApplication()

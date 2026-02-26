@@ -1,0 +1,1 @@
+Edit common window to allow configuratating color of title bar.

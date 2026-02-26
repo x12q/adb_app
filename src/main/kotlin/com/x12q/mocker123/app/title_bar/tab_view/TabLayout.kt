@@ -29,6 +29,7 @@ import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.row.CenterAlignRow
 import com.x12q.common_ui.spacer.HSpacer
 import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.mocker123.app.theme.AppTheme
 import kotlinx.coroutines.launch
 
 /**
@@ -45,7 +46,7 @@ fun <T> TabLayout(
 ) {
     Column(
         modifier
-            .background(BaseTheme.colors.baseColors.surface2)
+            .background(AppTheme.appColor.adbNotificationColor.appBackground)
     ) {
         TabBar(allTabItems, tabItemView, onAddClick, tailContent, Modifier.padding(4.dp))
         content()
@@ -98,8 +99,7 @@ private fun <T> TabRow(
                         }
                     }
                 }
-            }
-        ,
+            },
         horizontalArrangement = Arrangement.spacedBy(3.dp)
     ) {
         allTabItems.map { e ->

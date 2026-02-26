@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.michaelbull.result.Err
@@ -29,7 +28,6 @@ import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.DataEntry
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.EsData
 import com.x12q.common_ui.spacer.HSpacer
-import com.x12q.common_ui.text.ContentText
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.PreviewColumn
 import com.x12q.common_ui.preview_views.previewApp
@@ -43,11 +41,9 @@ fun AdbSection(
     viewModel: AdbSectionViewModel,
     modifier: Modifier = Modifier,
 ) {
-    val commandState = viewModel.adbCommandStateFlow.collectAsState().value
     val dataEntries: List<DataEntry> = viewModel.esMapFlow.collectAsState().value.values.toList()
 
     AdbSection(
-        status = commandState.makeStatusMessage(),
         dataEntries = dataEntries,
         onChange = viewModel::onEntryChange,
         onAddEsClick = viewModel::addBlankEs,
@@ -59,7 +55,6 @@ fun AdbSection(
 
 @Composable
 internal fun AdbSection(
-    status: String,
     dataEntries: List<DataEntry>,
     onChange: (DataEntry) -> Unit,
     onAddEsClick: () -> Unit,
@@ -90,7 +85,6 @@ internal fun AdbSection(
                 onDeleteEntry = onDeleteEntry,
                 modifier = Modifier.weight(1f)
             )
-            ContentText("Status: $status", Modifier.align(Alignment.End))
         }
     }
 }
@@ -126,7 +120,6 @@ private fun Preview_AdbSection() {
     PreviewBoxOnSurface {
         PreviewColumn {
             AdbSection(
-                status = "status",
                 dataEntries = List(3) { EsData.random() },
                 onChange = {},
                 onAddEsClick = {},

@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.x12q.adb_app.generated.resources.Res
 import com.x12q.adb_app.generated.resources.run_adb
 import com.x12q.adb_app.generated.resources.run_adb_btn
+import com.x12q.adb_app.generated.resources.generated_adb_command
 import com.x12q.adb_app.generated.resources.run_adb_section
 import androidx.compose.material3.Text
 import com.x12q.common_di.di.viewmodel_di.getVM
@@ -26,6 +27,7 @@ import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionIcon
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionTitle
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.AdbCommandState
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.enabledRunButton
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.makeStatusMessage
 import com.x12q.mocker123.app.theme.AppTheme
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.AdbProfileId
 import org.jetbrains.compose.resources.stringResource
@@ -47,6 +49,7 @@ fun RunAdbSection(
         onCopyClick = viewModel::onCopyClick,
         enableRunButton = commandState.enabledRunButton(),
         onRunClick = viewModel::onRunClick,
+        status = commandState.makeStatusMessage(),
         modifier = modifier,
     )
 }
@@ -60,6 +63,7 @@ fun RunAdbSection(
     onCopyClick: () -> Unit,
     enableRunButton: Boolean,
     onRunClick: () -> Unit,
+    status: String,
     modifier: Modifier = Modifier,
 ) {
     SectionBox(modifier) {
@@ -68,9 +72,10 @@ fun RunAdbSection(
             modifier = Modifier.fillMaxSize()
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                SectionTitle(stringResource(Res.string.run_adb_section), icon = {
-                    SectionIcon(Res.drawable.run_adb)
-                })
+                SectionTitle(
+                    text = stringResource(Res.string.run_adb_section),
+                    icon = { SectionIcon(Res.drawable.run_adb) }
+                )
                 RunAdbButton(isEnabled = enableRunButton, onClick = onRunClick)
             }
             AdbPathField(
@@ -79,16 +84,16 @@ fun RunAdbSection(
                 showPathError = showPathError,
             )
 
-            AdbCommandTitle()
-            AdbCommandTextBox(command = commandText, onCopyClick = onCopyClick, modifier = Modifier.weight(0.5f))
+            AdbCommandSubtitleTitle(status)
+            AdbCommandText(command = commandText, onCopyClick = onCopyClick, modifier = Modifier.weight(0.5f))
         }
     }
 }
 
 @Composable
-fun AdbCommandTitle(modifier: Modifier = Modifier) {
+fun AdbCommandSubtitleTitle(status: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Generated ADB command",
+        text = "${stringResource(Res.string.generated_adb_command)}: $status",
         style = AppTheme.appStyle.sectionSubTitle,
         color = AppTheme.appColor.adbNotificationColor.sectionTitle,
         modifier = modifier,
@@ -121,6 +126,7 @@ private fun Preview_RunAdbSection() {
             onCopyClick = {},
             enableRunButton = true,
             onRunClick = {},
+            status = "OK",
             modifier = Modifier.padding(20.dp),
         )
     }

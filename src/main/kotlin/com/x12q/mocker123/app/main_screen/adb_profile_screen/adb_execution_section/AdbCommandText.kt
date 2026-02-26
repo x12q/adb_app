@@ -17,18 +17,16 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import com.x12q.adb_app.generated.resources.Res
 import com.x12q.adb_app.generated.resources.copied
-import com.x12q.common_ui.text.SelectableBoxedText
 import com.x12q.common_ui.toast.Toast
 import com.x12q.common_ui.toast.ToastDuration
 import com.x12q.common_ui.toast.ToastText
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.NonEditSelectableTextBox
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.manifest_section.CopyButton
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.manifest_section.ManifestTextBox
 import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
-fun AdbCommandTextBox(
+fun AdbCommandText(
     command: AnnotatedString?,
     onCopyClick: () -> Unit,
     modifier: Modifier = Modifier,
