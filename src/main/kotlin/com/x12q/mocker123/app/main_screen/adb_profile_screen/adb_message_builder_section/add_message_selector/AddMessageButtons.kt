@@ -2,12 +2,12 @@ package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builde
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
 import com.x12q.adb_app.generated.resources.Res
-import com.x12q.adb_app.generated.resources.json_escape_type_label
 import com.x12q.adb_app.generated.resources.message_type_body_label
-import com.x12q.adb_app.generated.resources.message_type_text_label
 import com.x12q.adb_app.generated.resources.message_type_title_label
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.ADBNotifButton
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es.EscapeType
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es.MessageTypeLabel
 import org.jetbrains.compose.resources.stringResource
 
 
@@ -16,8 +16,9 @@ fun AddTitleButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ADBNotifButton(
-        stringResource(Res.string.message_type_title_label),
+    MessageTypeLabel(
+        label = stringResource(Res.string.message_type_title_label),
+        fontSize = 12.sp,
         onClick = onClick,
         modifier = modifier,
     )
@@ -28,8 +29,9 @@ fun AddBodyButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ADBNotifButton(
-        stringResource(Res.string.message_type_body_label),
+    MessageTypeLabel(
+        label = stringResource(Res.string.message_type_body_label),
+        fontSize = 12.sp,
         onClick = onClick,
         modifier = modifier,
     )
@@ -40,8 +42,9 @@ fun AddJsonButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ADBNotifButton(
-        stringResource(Res.string.json_escape_type_label),
+    MessageTypeLabel(
+        type = EscapeType.JSON,
+        fontSize = 12.sp,
         onClick = onClick,
         modifier = modifier,
     )
@@ -52,8 +55,9 @@ fun AddTextButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ADBNotifButton(
-        stringResource(Res.string.message_type_text_label),
+    MessageTypeLabel(
+        type = EscapeType.PLAIN_TEXT,
+        fontSize = 12.sp,
         onClick = onClick,
         modifier = modifier,
     )

@@ -20,7 +20,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -31,7 +30,7 @@ import com.x12q.common_ui.corner12Border
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.row.CenterAlignRow
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es.EscapeTypeLabel
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es.MessageTypeLabel
 import com.x12q.mocker123.app.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -131,7 +130,7 @@ private fun EsEntryRow(
             modifier = Modifier.weight(TableWeights.value).padding(start = 10.dp)
         )
         TableContentCell(Modifier.weight(TableWeights.type).padding(start = 10.dp)) {
-            EscapeTypeLabel(
+            MessageTypeLabel(
                 type = entry.escapeType,
                 fontSize = AppTheme.appStyle.content.fontSize,
                 onClick = null

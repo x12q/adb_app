@@ -22,7 +22,7 @@ fun EscapeTypeSelector(
     val items = remember { EscapeType.entries.toList() }
 
     CenterAlignRow(modifier = modifier) {
-        EscapeTypeLabel(
+        MessageTypeLabel(
             type = currentEscapeType,
             fontSize = 10.sp,
             onClick = { expanded = true },
@@ -38,7 +38,7 @@ fun EscapeTypeSelector(
                 expanded = false
             },
             itemView = { escapeType ->
-                EscapeTypeLabel(type = escapeType, fontSize = 14.sp, onClick = null)
+                MessageTypeLabel(type = escapeType, fontSize = 14.sp, onClick = null)
             }
         )
     }

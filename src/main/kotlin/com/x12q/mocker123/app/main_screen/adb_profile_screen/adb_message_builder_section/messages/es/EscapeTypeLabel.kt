@@ -21,8 +21,8 @@ import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
-fun EscapeTypeLabel(
-    type: EscapeType,
+fun MessageTypeLabel(
+    label: String,
     fontSize: TextUnit,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
@@ -35,7 +35,7 @@ fun EscapeTypeLabel(
             )
     ) {
         ContentText(
-            text = type.getLabel(),
+            text = label,
             style = BaseTheme.typography.content.copy(
                 color = BaseTheme.colors.baseColors.primary,
                 fontSize = fontSize,
@@ -43,6 +43,21 @@ fun EscapeTypeLabel(
             modifier = Modifier.padding(5.dp),
         )
     }
+}
+
+@Composable
+fun MessageTypeLabel(
+    type: EscapeType,
+    fontSize: TextUnit,
+    onClick: (() -> Unit)?,
+    modifier: Modifier = Modifier,
+) {
+    MessageTypeLabel(
+        label = type.getLabel(),
+        fontSize = fontSize,
+        onClick = onClick,
+        modifier = modifier,
+    )
 }
 
 @Composable
@@ -59,12 +74,12 @@ internal fun EscapeType.getLabel(): String {
 @Composable
 private fun Preview_TypeLabel() {
     PreviewColumn {
-        EscapeTypeLabel(
+        MessageTypeLabel(
             type = EscapeType.JSON,
             fontSize = 10.sp,
             onClick = {},
         )
-        EscapeTypeLabel(
+        MessageTypeLabel(
             type = EscapeType.PLAIN_TEXT,
             fontSize = 10.sp,
             onClick = {},

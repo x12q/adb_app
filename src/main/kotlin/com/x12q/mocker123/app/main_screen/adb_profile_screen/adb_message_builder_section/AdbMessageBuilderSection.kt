@@ -33,8 +33,10 @@ import com.x12q.common_ui.preview_views.PreviewColumn
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.spacer.VSpacer
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionTitle
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.AddBodyButton
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.AddJsonButton
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.AddTextButton
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.AddTitleButton
 import org.jetbrains.compose.resources.stringResource
 
 
@@ -73,22 +75,30 @@ internal fun AdbSection(
                     icon = { SectionIcon(Res.drawable.message_build) },
                 )
 
-                AddMessageSelector(
-                    onClick = onAddEsClick,
-                    onSelectMessageType = onSelectMessageType,
-                )
+                Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
 
-                AddJsonButton(
-                    onClick = {
-                        onSelectMessageType(MessageType.JSON)
-                    }
-                )
+                    AddMessageSelector(
+                        onClick = onAddEsClick,
+                        onSelectMessageType = onSelectMessageType,
+                    )
 
-                AddTextButton(
-                    onClick = {
-                        onSelectMessageType(MessageType.PLAIN_TEXT)
-                    }
-                )
+                    AddTitleButton({
+                        onSelectMessageType(MessageType.TITLE)
+                    })
+                    AddBodyButton({
+                        onSelectMessageType(MessageType.BODY)
+                    })
+                    AddJsonButton(
+                        onClick = {
+                            onSelectMessageType(MessageType.JSON)
+                        }
+                    )
+                    AddTextButton(
+                        onClick = {
+                            onSelectMessageType(MessageType.PLAIN_TEXT)
+                        }
+                    )
+                }
             }
 
             VSpacer(15.dp)
