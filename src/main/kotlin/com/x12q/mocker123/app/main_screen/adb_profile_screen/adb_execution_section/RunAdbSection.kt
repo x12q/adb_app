@@ -38,9 +38,10 @@ import org.jetbrains.compose.resources.stringResource
 fun RunAdbSection(
     adbProfileId: AdbProfileId,
     modifier: Modifier = Modifier,
-    viewModel: RunAdbSectionViewModel = getVM<RunAdbSectionViewModel, RunAdbSectionViewModel.Factory>(create = { factory ->
-        factory.create(adbProfileId)
-    }),
+    viewModel: RunAdbSectionViewModel = getVM<RunAdbSectionViewModel, RunAdbSectionViewModel.Factory>(
+        key = "${adbProfileId.uuid}",
+        create = { factory -> factory.create(adbProfileId) }
+    ),
 ) {
     val commandState = viewModel.adbCommandStateFlow.collectAsState().value
     RunAdbSection(
@@ -93,7 +94,7 @@ fun RunAdbSection(
 }
 
 @Composable
-fun AdbCommandSubtitleTitle(status: AdbCommandState , modifier: Modifier = Modifier) {
+fun AdbCommandSubtitleTitle(status: AdbCommandState, modifier: Modifier = Modifier) {
     val statusStr = status.makeStatusMessage()
     val subtitle = buildAnnotatedString {
         append("${stringResource(Res.string.generated_adb_command)}: ")
