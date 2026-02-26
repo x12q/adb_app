@@ -35,7 +35,7 @@ import com.x12q.common_ui.corner6Border
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.text.ContentText
-import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.mocker123.app.theme.AppTheme
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -50,9 +50,9 @@ fun TabView(
 ) {
 
     val backgroundColor = if (isSelected) {
-        BaseTheme.colors.baseColors.faintOnSurface2
+        AppTheme.appColor.adbNotificationColor.tabSelectedBackground
     } else {
-        BaseTheme.colors.baseColors.surface2
+        AppTheme.appColor.adbNotificationColor.tabBackgroundUnselected
     }
     val rename = stringResource(Res.string.rename_context_menu_item_label)
     var showEditableLabel by remember { mutableStateOf(false) }

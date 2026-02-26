@@ -32,7 +32,9 @@ data class AdbNotificationColor(
         borderStrokeColor = buttonBackground,
         disableBackgroundColor = Color.LightGray,
         hoverColor = buttonBackground.copy(alpha = 0.5f),
-    )
+    ),
+    val tabSelectedBackground: Color = Color(0xFF4AABB5),
+    val tabBackgroundUnselected: Color = Color(0xFF1A3540),
 ) {
     companion object {
         val dark = AdbNotificationColor()
