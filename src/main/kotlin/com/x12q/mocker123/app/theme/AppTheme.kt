@@ -19,6 +19,7 @@ import org.jetbrains.jewel.window.styling.TitleBarColors
 import org.jetbrains.jewel.window.styling.TitleBarStyle
 
 val LocalAppColorProvider = staticCompositionLocalOf { AppColor.default }
+val LocalIsDarkProvider = staticCompositionLocalOf{ true }
 
 object AppTheme {
     val baseTheme = BaseTheme
@@ -55,6 +56,7 @@ fun AppTheme(
         }
         CompositionLocalProvider(
             LocalAppColorProvider provides appColor,
+            LocalIsDarkProvider provides isDarkTheme,
             content = content
         )
     }

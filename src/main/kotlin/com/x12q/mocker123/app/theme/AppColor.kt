@@ -1,6 +1,7 @@
 package com.x12q.mocker123.app.theme
 
 import androidx.compose.ui.graphics.Color
+import com.x12q.common_ui.button.Button2Colors
 import com.x12q.common_ui.theme.BaseColors
 
 data class AdbNotificationColor(
@@ -10,7 +11,7 @@ data class AdbNotificationColor(
     val sectionBackground: Color = Color(0xFF0F172A),
     val sectionBorder: Color = Color(0xFF1E293B),
     val sectionIconTint: Color = Color(0xFF195DE6),
-    val button: Color = Color(0xFF195DE6),
+    val buttonBackground: Color = Color(0xFF195DE6),
     val buttonText: Color = Color.White,
     val sectionTitle: Color = Color(0xFFF1F5F9),
     val sectionSubTitle: Color = Color(0xFF94A3B8),
@@ -25,7 +26,13 @@ data class AdbNotificationColor(
     val tableHeaderBackground: Color = Color(0xFF1E293B),
     val tableIconTint: Color = Color(0xFF94A3B8),
     val tableDivider: Color = Color(0xFF1E293B),
-    val errorTextColor: Color = Color(0xFFFB7185)
+    val errorTextColor: Color = Color(0xFFFB7185),
+    val button2Color: Button2Colors = Button2Colors(
+        backgroundColor = buttonBackground,
+        borderStrokeColor = buttonBackground,
+        disableBackgroundColor = Color.LightGray,
+        hoverColor = buttonBackground.copy(alpha = 0.5f),
+    )
 ) {
     companion object {
         val dark = AdbNotificationColor()

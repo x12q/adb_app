@@ -33,6 +33,8 @@ import com.x12q.common_ui.preview_views.PreviewColumn
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.spacer.VSpacer
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionTitle
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.AddJsonButton
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.AddTextButton
 import org.jetbrains.compose.resources.stringResource
 
 
@@ -74,6 +76,18 @@ internal fun AdbSection(
                 AddMessageSelector(
                     onClick = onAddEsClick,
                     onSelectMessageType = onSelectMessageType,
+                )
+
+                AddJsonButton(
+                    onClick = {
+                        onSelectMessageType(MessageType.JSON)
+                    }
+                )
+
+                AddTextButton(
+                    onClick = {
+                        onSelectMessageType(MessageType.PLAIN_TEXT)
+                    }
                 )
             }
 

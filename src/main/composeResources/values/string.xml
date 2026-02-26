@@ -20,6 +20,7 @@
     <string name="rename_context_menu_item_label">Rename</string>
     <string name="message_type_title_label">Title</string>
     <string name="message_type_body_label">Body</string>
+    <string name="message_type_text_label">Text</string>
     <string name="adb_output_label">Output:</string>
     <string name="change_adb_label">Adb path:</string>
     <string name="change_adb_label_hint">adb</string>

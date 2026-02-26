@@ -24,6 +24,7 @@ import com.x12q.common_di.di.viewmodel_di.getVM
 import com.x12q.common_ui.button.Button2
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.previewApp
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.ADBNotifButton
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionBox
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionIcon
 import com.x12q.mocker123.app.main_screen.adb_profile_screen.SectionTitle
@@ -123,11 +124,11 @@ private fun RunAdbButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Button2(
-        onClick = onClick,
+    ADBNotifButton(
         text = stringResource(Res.string.run_adb_btn),
-        enabled = isEnabled,
+        onClick = onClick,
         modifier = modifier,
+        isEnabled = isEnabled,
     )
 }
 

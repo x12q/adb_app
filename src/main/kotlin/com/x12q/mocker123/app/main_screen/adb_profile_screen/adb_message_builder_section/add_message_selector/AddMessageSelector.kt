@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.x12q.adb_app.generated.resources.Res
 import com.x12q.adb_app.generated.resources.add_message_btn
 import com.x12q.adb_app.generated.resources.more_button_icon
+import com.x12q.common_ui.button.Button2
 import com.x12q.common_ui.cornerXBorder
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.previewApp
@@ -42,8 +43,7 @@ fun AddMessageSelector(
     Row(
         modifier = modifier
             .width(120.dp)
-            .height(IntrinsicSize.Min)
-        ,
+            .height(IntrinsicSize.Min),
         verticalAlignment = Alignment.CenterVertically
     ) {
         AddMessageButton(onClick = onClick, modifier = Modifier.weight(1f))
@@ -61,8 +61,8 @@ private fun VerticalLine() {
 
 @Composable
 private fun AddMessageButton(
-    modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier
@@ -79,9 +79,11 @@ private fun AddMessageButton(
                 onClick()
             }
     ) {
-        ButtonText(stringResource(Res.string.add_message_btn), modifier = Modifier
-            .padding(vertical = 5.dp)
-            .align(Alignment.Center))
+        ButtonText(
+            stringResource(Res.string.add_message_btn), modifier = Modifier
+                .padding(vertical = 5.dp)
+                .align(Alignment.Center)
+        )
     }
 }
 
