@@ -1,7 +1,7 @@
 package com.x12q.mocker123.app.main_screen
 
 import androidx.lifecycle.ViewModel
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.AdbProfileScreenViewModel
+import com.x12q.mocker123.app.main_screen.adb_notification_screen.AdbProfileScreenViewModel
 import com.x12q.mocker123.app.main_screen.di.MainScreenSubComponent
 import com.x12q.mocker123.service.local_service.adb_profile.AdbProfileRepoContainer
 import com.x12q.mocker123.service.local_service.adb_profile.data_structures.AdbProfile

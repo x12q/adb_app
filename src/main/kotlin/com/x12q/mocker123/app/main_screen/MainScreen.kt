@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.x12q.adb_app.generated.resources.Res
 import com.x12q.adb_app.generated.resources.no_profile
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.AdbProfileScreen
+import com.x12q.mocker123.app.main_screen.adb_notification_screen.AdbProfileScreen
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result

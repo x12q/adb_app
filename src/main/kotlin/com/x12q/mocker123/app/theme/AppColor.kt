@@ -4,14 +4,17 @@ import androidx.compose.ui.graphics.Color
 import com.x12q.common_ui.button.Button2Colors
 import com.x12q.common_ui.theme.BaseColors
 
+private val mutedCyan = Color(0xFF4AABB5)
+private val blue = Color(0xFF195DE6)
+
 data class AdbNotificationColor(
     val appBackground: Color = Color(0xFF0F172A),
     val packageNameBackground: Color = Color(0xFF1E293B),
     val packageNameBorder: Color = Color(0xFF334155),
     val sectionBackground: Color = Color(0xFF0F172A),
     val sectionBorder: Color = Color(0xFF1E293B),
-    val sectionIconTint: Color = Color(0xFF195DE6),
-    val buttonBackground: Color = Color(0xFF195DE6),
+    val sectionIconTint: Color = blue,
+    val buttonBackground: Color = blue,
     val buttonText: Color = Color.White,
     val sectionTitle: Color = Color(0xFFF1F5F9),
     val sectionSubTitle: Color = Color(0xFF94A3B8),
@@ -33,7 +36,7 @@ data class AdbNotificationColor(
         disableBackgroundColor = Color.LightGray,
         hoverColor = buttonBackground.copy(alpha = 0.5f),
     ),
-    val tabSelectedBackground: Color = Color(0xFF4AABB5),
+    val tabSelectedBackground: Color = mutedCyan,
     val tabBackgroundUnselected: Color = Color(0xFF1A3540),
 ) {
     companion object {
