@@ -1,6 +1,7 @@
 package com.x12q.mocker123.app.theme
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -24,6 +25,14 @@ object AppStyle {
             fontWeight = FontWeight.Thin,
             fontFamily = jetBrainMonoFontFamily,
             lineHeight = 1.4.sp,
+            letterSpacing = 0.1.sp,
+        )
+
+    val sectionSubTitleSpanStyle: SpanStyle
+        @Composable get() = SpanStyle(
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Thin,
+            fontFamily = jetBrainMonoFontFamily,
             letterSpacing = 0.1.sp,
         )
 

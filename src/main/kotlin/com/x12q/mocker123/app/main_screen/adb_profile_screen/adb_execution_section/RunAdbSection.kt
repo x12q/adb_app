@@ -18,6 +18,8 @@ import com.x12q.adb_app.generated.resources.run_adb_btn
 import com.x12q.adb_app.generated.resources.generated_adb_command
 import com.x12q.adb_app.generated.resources.run_adb_section
 import androidx.compose.material3.Text
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import com.x12q.common_di.di.viewmodel_di.getVM
 import com.x12q.common_ui.button.Button2
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
@@ -49,7 +51,7 @@ fun RunAdbSection(
         onCopyClick = viewModel::onCopyClick,
         enableRunButton = commandState.enabledRunButton(),
         onRunClick = viewModel::onRunClick,
-        status = commandState.makeStatusMessage(),
+        status = commandState,
         modifier = modifier,
     )
 }
@@ -63,7 +65,7 @@ fun RunAdbSection(
     onCopyClick: () -> Unit,
     enableRunButton: Boolean,
     onRunClick: () -> Unit,
-    status: String,
+    status: AdbCommandState,
     modifier: Modifier = Modifier,
 ) {
     SectionBox(modifier) {
@@ -91,9 +93,23 @@ fun RunAdbSection(
 }
 
 @Composable
-fun AdbCommandSubtitleTitle(status: String, modifier: Modifier = Modifier) {
+fun AdbCommandSubtitleTitle(status: AdbCommandState , modifier: Modifier = Modifier) {
+    val statusStr = status.makeStatusMessage()
+    val subtitle = buildAnnotatedString {
+        append("${stringResource(Res.string.generated_adb_command)}: ")
+        val statusStyle = AppTheme.appStyle.sectionSubTitleSpanStyle.let {
+            if (status.isError) {
+                it.copy(color = AppTheme.appColor.adbNotificationColor.errorTextColor)
+            } else {
+                it
+            }
+        }
+        withStyle(statusStyle) {
+            append(statusStr)
+        }
+    }
     Text(
-        text = "${stringResource(Res.string.generated_adb_command)}: $status",
+        text = subtitle,
         style = AppTheme.appStyle.sectionSubTitle,
         color = AppTheme.appColor.adbNotificationColor.sectionTitle,
         modifier = modifier,
@@ -126,7 +142,7 @@ private fun Preview_RunAdbSection() {
             onCopyClick = {},
             enableRunButton = true,
             onRunClick = {},
-            status = "OK",
+            status = AdbCommandState.Loading,
             modifier = Modifier.padding(20.dp),
         )
     }
