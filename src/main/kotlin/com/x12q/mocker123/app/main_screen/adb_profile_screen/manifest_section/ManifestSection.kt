@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -77,7 +78,7 @@ fun ManifestSection(
             Box {
                 val actualPackageName = packageName ?: stringResource(Res.string.app_package_name_placeholder)
 
-                ManifestTextBox(actualPackageName, Modifier.fillMaxWidth())
+                ManifestTextBox(actualPackageName, Modifier.fillMaxWidth().fillMaxHeight())
 
                 val tobeCopiedText = buildAnnotatedManifestText(actualPackageName).text
 
