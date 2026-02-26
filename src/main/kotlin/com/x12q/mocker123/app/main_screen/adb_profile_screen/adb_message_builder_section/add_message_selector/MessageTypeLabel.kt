@@ -1,4 +1,4 @@
-package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es
+package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.clickable
@@ -17,6 +17,7 @@ import com.x12q.common_ui.corner3Border
 import com.x12q.common_ui.preview_views.PreviewColumn
 import com.x12q.common_ui.text.ContentText
 import com.x12q.common_ui.theme.BaseTheme
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es.EscapeType
 import org.jetbrains.compose.resources.stringResource
 
 
@@ -27,33 +28,18 @@ fun MessageTypeLabel(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = modifier
-            .corner3Border(1.dp, color = BaseTheme.colors.baseColors.primary)
-            .then(
-                if (onClick != null) Modifier.clickable { onClick() } else Modifier
-            )
-    ) {
-        ContentText(
-            text = label,
-            style = BaseTheme.typography.content.copy(
-                color = BaseTheme.colors.baseColors.primary,
-                fontSize = fontSize,
-            ),
-            modifier = Modifier.padding(5.dp),
-        )
-    }
+    TypeLabelBox(label = label, fontSize = fontSize, onClick = onClick, modifier = modifier)
 }
 
 @Composable
 fun MessageTypeLabel(
-    type: EscapeType,
+    escapeType: EscapeType,
     fontSize: TextUnit,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
 ) {
     MessageTypeLabel(
-        label = type.getLabel(),
+        label = escapeType.getLabel(),
         fontSize = fontSize,
         onClick = onClick,
         modifier = modifier,
@@ -75,12 +61,12 @@ internal fun EscapeType.getLabel(): String {
 private fun Preview_TypeLabel() {
     PreviewColumn {
         MessageTypeLabel(
-            type = EscapeType.JSON,
+            escapeType = EscapeType.JSON,
             fontSize = 10.sp,
             onClick = {},
         )
         MessageTypeLabel(
-            type = EscapeType.PLAIN_TEXT,
+            escapeType = EscapeType.PLAIN_TEXT,
             fontSize = 10.sp,
             onClick = {},
         )

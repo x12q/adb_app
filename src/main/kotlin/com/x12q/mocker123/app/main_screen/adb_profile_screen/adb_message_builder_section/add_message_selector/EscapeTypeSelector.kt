@@ -1,4 +1,4 @@
-package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es
+package com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.sp
 import com.x12q.common_ui.row.CenterAlignRow
 import com.x12q.common_ui.drop_down_menu.BasicDropdownMenuWithAlwaysClickableItems
 import com.x12q.common_ui.preview_views.previewApp
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es.EscapeType
 
 @Composable
 fun EscapeTypeSelector(
@@ -23,7 +24,7 @@ fun EscapeTypeSelector(
 
     CenterAlignRow(modifier = modifier) {
         MessageTypeLabel(
-            type = currentEscapeType,
+            escapeType = currentEscapeType,
             fontSize = 10.sp,
             onClick = { expanded = true },
         )
@@ -38,7 +39,7 @@ fun EscapeTypeSelector(
                 expanded = false
             },
             itemView = { escapeType ->
-                MessageTypeLabel(type = escapeType, fontSize = 14.sp, onClick = null)
+                MessageTypeLabel(escapeType = escapeType, fontSize = 14.sp, onClick = null)
             }
         )
     }

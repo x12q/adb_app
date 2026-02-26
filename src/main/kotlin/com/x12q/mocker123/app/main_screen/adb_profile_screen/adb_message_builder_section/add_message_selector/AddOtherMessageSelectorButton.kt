@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.x12q.adb_app.generated.resources.Res
 import com.x12q.adb_app.generated.resources.add_message_btn
 import com.x12q.adb_app.generated.resources.more_button_icon
-import com.x12q.common_ui.button.Button2
 import com.x12q.common_ui.cornerXBorder
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.previewApp
@@ -35,7 +34,7 @@ import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
-fun AddMessageSelector(
+fun AddOtherMessageSelectorButton(
     onClick: () -> Unit,
     onSelectMessageType: (MessageType) -> Unit,
     modifier: Modifier = Modifier
@@ -52,11 +51,6 @@ fun AddMessageSelector(
 
         MessageSelectorButton(onSelectMessageType, Modifier.fillMaxHeight())
     }
-}
-
-@Composable
-private fun VerticalLine() {
-    Spacer(Modifier.fillMaxHeight().width(1.dp).background(BaseTheme.colors.baseColors.onPrimary))
 }
 
 @Composable
@@ -132,11 +126,17 @@ internal fun MessageSelectorButton(
 }
 
 
+@Composable
+private fun VerticalLine() {
+    Spacer(Modifier.fillMaxHeight().width(1.dp).background(BaseTheme.colors.baseColors.onPrimary))
+}
+
+
 @Preview
 @Composable
 private fun Preview_AddMessageButton() {
     PreviewBoxOnSurface() {
-        AddMessageSelector(
+        AddOtherMessageSelectorButton(
             onClick = {},
             onSelectMessageType = {},
             modifier = Modifier.align(Alignment.Center)

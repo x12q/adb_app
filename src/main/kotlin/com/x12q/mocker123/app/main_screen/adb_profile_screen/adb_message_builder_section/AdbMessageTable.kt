@@ -30,7 +30,7 @@ import com.x12q.common_ui.corner12Border
 import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.previewApp
 import com.x12q.common_ui.row.CenterAlignRow
-import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.messages.es.MessageTypeLabel
+import com.x12q.mocker123.app.main_screen.adb_profile_screen.adb_message_builder_section.add_message_selector.MessageTypeLabel
 import com.x12q.mocker123.app.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -131,7 +131,7 @@ private fun EsEntryRow(
         )
         TableContentCell(Modifier.weight(TableWeights.type).padding(start = 10.dp)) {
             MessageTypeLabel(
-                type = entry.escapeType,
+                escapeType = entry.escapeType,
                 fontSize = AppTheme.appStyle.content.fontSize,
                 onClick = null
             )
